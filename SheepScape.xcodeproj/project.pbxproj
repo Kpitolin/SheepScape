@@ -18,13 +18,18 @@
 		DE555F43198CF80700AFFFE4 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE555F41198CF80700AFFFE4 /* Main_iPad.storyboard */; };
 		DE555F46198CF80700AFFFE4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE555F45198CF80700AFFFE4 /* ViewController.m */; };
 		DE555F49198CF80700AFFFE4 /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DE555F48198CF80700AFFFE4 /* MyScene.m */; };
-		DE555F4B198CF80700AFFFE4 /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = DE555F4A198CF80700AFFFE4 /* Spaceship.png */; };
 		DE555F4D198CF80700AFFFE4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE555F4C198CF80700AFFFE4 /* Images.xcassets */; };
 		DE555F54198CF80700AFFFE4 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE555F53198CF80700AFFFE4 /* XCTest.framework */; };
 		DE555F55198CF80700AFFFE4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE555F2A198CF80600AFFFE4 /* Foundation.framework */; };
 		DE555F56198CF80700AFFFE4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE555F2E198CF80600AFFFE4 /* UIKit.framework */; };
 		DE555F5E198CF80700AFFFE4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DE555F5C198CF80700AFFFE4 /* InfoPlist.strings */; };
 		DE555F60198CF80700AFFFE4 /* SheepScapeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DE555F5F198CF80700AFFFE4 /* SheepScapeTests.m */; };
+		DE555F6B198D1E1700AFFFE4 /* Cloudy.sks in Resources */ = {isa = PBXBuildFile; fileRef = DE555F69198D1E1700AFFFE4 /* Cloudy.sks */; };
+		DE555F6C198D1E1700AFFFE4 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = DE555F6A198D1E1700AFFFE4 /* spark.png */; };
+		DE555F6F198D272100AFFFE4 /* Spawner.m in Sources */ = {isa = PBXBuildFile; fileRef = DE555F6E198D272100AFFFE4 /* Spawner.m */; };
+		DE555F72198D295F00AFFFE4 /* Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = DE555F71198D295F00AFFFE4 /* Colors.m */; };
+		DE555F74198D2BFD00AFFFE4 /* Rain.sks in Resources */ = {isa = PBXBuildFile; fileRef = DE555F73198D2BFD00AFFFE4 /* Rain.sks */; };
+		DE5E0E23198D5E4D00449D09 /* SheepNode.m in Sources */ = {isa = PBXBuildFile; fileRef = DE5E0E22198D5E4D00449D09 /* SheepNode.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,13 +60,22 @@
 		DE555F45198CF80700AFFFE4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		DE555F47198CF80700AFFFE4 /* MyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
 		DE555F48198CF80700AFFFE4 /* MyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
-		DE555F4A198CF80700AFFFE4 /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
 		DE555F4C198CF80700AFFFE4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DE555F52198CF80700AFFFE4 /* SheepScapeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SheepScapeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE555F53198CF80700AFFFE4 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		DE555F5B198CF80700AFFFE4 /* SheepScapeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SheepScapeTests-Info.plist"; sourceTree = "<group>"; };
 		DE555F5D198CF80700AFFFE4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DE555F5F198CF80700AFFFE4 /* SheepScapeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SheepScapeTests.m; sourceTree = "<group>"; };
+		DE555F69198D1E1700AFFFE4 /* Cloudy.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Cloudy.sks; sourceTree = "<group>"; };
+		DE555F6A198D1E1700AFFFE4 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		DE555F6D198D272100AFFFE4 /* Spawner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spawner.h; sourceTree = "<group>"; };
+		DE555F6E198D272100AFFFE4 /* Spawner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Spawner.m; sourceTree = "<group>"; };
+		DE555F70198D295F00AFFFE4 /* Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
+		DE555F71198D295F00AFFFE4 /* Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Colors.m; sourceTree = "<group>"; };
+		DE555F73198D2BFD00AFFFE4 /* Rain.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Rain.sks; sourceTree = "<group>"; };
+		DE5E0E1E198D414100449D09 /* AppConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppConst.h; path = ../AppConst.h; sourceTree = "<group>"; };
+		DE5E0E21198D5E4D00449D09 /* SheepNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SheepNode.h; sourceTree = "<group>"; };
+		DE5E0E22198D5E4D00449D09 /* SheepNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SheepNode.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,15 +137,24 @@
 		DE555F32198CF80600AFFFE4 /* SheepScape */ = {
 			isa = PBXGroup;
 			children = (
+				DE5E0E1E198D414100449D09 /* AppConst.h */,
 				DE555F3B198CF80600AFFFE4 /* AppDelegate.h */,
 				DE555F3C198CF80600AFFFE4 /* AppDelegate.m */,
+				DE555F69198D1E1700AFFFE4 /* Cloudy.sks */,
+				DE555F6A198D1E1700AFFFE4 /* spark.png */,
 				DE555F3E198CF80700AFFFE4 /* Main_iPhone.storyboard */,
 				DE555F41198CF80700AFFFE4 /* Main_iPad.storyboard */,
 				DE555F44198CF80700AFFFE4 /* ViewController.h */,
 				DE555F45198CF80700AFFFE4 /* ViewController.m */,
+				DE555F73198D2BFD00AFFFE4 /* Rain.sks */,
 				DE555F47198CF80700AFFFE4 /* MyScene.h */,
 				DE555F48198CF80700AFFFE4 /* MyScene.m */,
-				DE555F4A198CF80700AFFFE4 /* Spaceship.png */,
+				DE555F6D198D272100AFFFE4 /* Spawner.h */,
+				DE555F6E198D272100AFFFE4 /* Spawner.m */,
+				DE5E0E21198D5E4D00449D09 /* SheepNode.h */,
+				DE5E0E22198D5E4D00449D09 /* SheepNode.m */,
+				DE555F70198D295F00AFFFE4 /* Colors.h */,
+				DE555F71198D295F00AFFFE4 /* Colors.m */,
 				DE555F4C198CF80700AFFFE4 /* Images.xcassets */,
 				DE555F33198CF80600AFFFE4 /* Supporting Files */,
 			);
@@ -243,8 +266,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE555F4B198CF80700AFFFE4 /* Spaceship.png in Resources */,
+				DE555F6B198D1E1700AFFFE4 /* Cloudy.sks in Resources */,
 				DE555F4D198CF80700AFFFE4 /* Images.xcassets in Resources */,
+				DE555F74198D2BFD00AFFFE4 /* Rain.sks in Resources */,
+				DE555F6C198D1E1700AFFFE4 /* spark.png in Resources */,
 				DE555F43198CF80700AFFFE4 /* Main_iPad.storyboard in Resources */,
 				DE555F40198CF80700AFFFE4 /* Main_iPhone.storyboard in Resources */,
 				DE555F37198CF80600AFFFE4 /* InfoPlist.strings in Resources */,
@@ -266,10 +291,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE5E0E23198D5E4D00449D09 /* SheepNode.m in Sources */,
 				DE555F49198CF80700AFFFE4 /* MyScene.m in Sources */,
+				DE555F72198D295F00AFFFE4 /* Colors.m in Sources */,
 				DE555F46198CF80700AFFFE4 /* ViewController.m in Sources */,
 				DE555F3D198CF80600AFFFE4 /* AppDelegate.m in Sources */,
 				DE555F39198CF80600AFFFE4 /* main.m in Sources */,
+				DE555F6F198D272100AFFFE4 /* Spawner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,6 +514,7 @@
 				DE555F65198CF80700AFFFE4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DE555F66198CF80700AFFFE4 /* Build configuration list for PBXNativeTarget "SheepScapeTests" */ = {
 			isa = XCConfigurationList;
@@ -494,6 +523,7 @@
 				DE555F68198CF80700AFFFE4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
