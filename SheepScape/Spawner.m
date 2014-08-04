@@ -9,25 +9,21 @@
 #import "Spawner.h"
 #import "Colors.h"
 
-
 @implementation Spawner
 
-//
-//for (NSDictionary *conditionPlist in dic[@"Conditions"]) {
-//    KTAchievementCondition *condition = [[KTAchievementCondition alloc] initWithPlistRepresentation:conditionPlist];
 
-+(SKEmitterNode *)rain
++(CustomEmmiterNode *)rainWithHeight:(CGFloat)height
 {
-    SKEmitterNode * emmiterNode = [[SKEmitterNode alloc ] init];
+    CustomEmmiterNode * emmiterNode = [[CustomEmmiterNode alloc ] init];
     NSString * particulePath = [[NSBundle mainBundle] pathForResource:@"Rain" ofType:@"sks"];
-
     emmiterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:particulePath];
     emmiterNode.particleColor = [Colors rainColor];
     emmiterNode.particleColorSequence = nil;
+    emmiterNode.physicNode = [Spawner rainAreaFromRainNode:emmiterNode andHeight:height];
 
     return emmiterNode;
 }
--(SKShapeNode *) rainAreaFromRainNode:(SKEmitterNode *)rain andHeight:(CGFloat)height
++(SKShapeNode *) rainAreaFromRainNode:(SKEmitterNode *)rain andHeight:(CGFloat)height
 {
     SKShapeNode * node = [[SKShapeNode alloc] init];
     CGPoint origin =  rain.position;
@@ -61,11 +57,113 @@
     return node;
 }
 
-CGFloat widthOfRect;
-CGFloat heightOfRect;
+
 #define WALL_WIDTH 40
 #define WALL_HEIGHT 40
-- (SKShapeNode *) wallNodeWithScreenWidth: (CGFloat)width andScreenHeigth:(CGFloat)height
+
++ (NSMutableArray *) createPlaygroundWithWidth: (CGFloat)width andHeigth:(CGFloat)height andMatrice:(NSArray *) matrice
+{
+    NSMutableArray * arrayOfPlaygrounObjects;
+    SKShapeNode * wallNode = [[SKShapeNode alloc] init];
+    UIBezierPath * pathOfWallNode = [[UIBezierPath alloc ]init];
+    SKShapeNode * startPointNode;
+    SKShapeNode * finalPointNode;
+    NSMutableArray * arrayOfPaths = [[NSMutableArray alloc ]init];
+    
+    CGFloat dimension = 0;
+    CGPoint offsetPoint = CGPointMake(0, 0);
+    CGFloat widthOfRect;
+    CGFloat heightOfRect;
+    for(NSArray * array in matrice)
+    {
+        if(dimension && dimension != [array count] )
+        {
+            NSLog(@"INCORRECT MATRICE");
+            break;
+        }
+        dimension = [array count];
+        
+    }
+    
+    if(width && height)
+    {
+        widthOfRect = width/dimension;
+        heightOfRect = height/[matrice count];
+    }
+    else
+    {
+        widthOfRect = WALL_WIDTH;
+        heightOfRect = WALL_HEIGHT;
+        
+        
+    }
+    
+    
+    for(NSArray * array in matrice)
+    {
+        offsetPoint.x = 0;
+        
+        for(NSNumber * number in array)
+        {
+            
+            switch ([number intValue]) {
+                case 1:
+                {
+                    UIBezierPath * path = [UIBezierPath bezierPathWithRect:CGRectMake(offsetPoint.x,offsetPoint.y,widthOfRect ,heightOfRect) ];
+                    [arrayOfPaths addObject:path];
+                }
+                    
+                    break;
+                    
+                case 2:
+                    startPointNode = [Spawner startPointNodeAtPoint:CGPointMake(offsetPoint.x+widthOfRect/2-START_WIDTH/2, offsetPoint.y+heightOfRect/2-START_WIDTH/2)];
+                    break;
+                case 4:
+                    finalPointNode = [Spawner finalPointNodeAtPoint:CGPointMake(offsetPoint.x+widthOfRect/2-FINAL_WIDTH/2, offsetPoint.y+heightOfRect/2-FINAL_WIDTH/2)];
+                    break;
+            }
+            
+            
+            
+            offsetPoint.x += widthOfRect;
+        }
+        offsetPoint.y += heightOfRect;
+        
+    }
+    
+    
+    
+    // WALLS
+    for ( UIBezierPath * path in arrayOfPaths) {
+        [pathOfWallNode appendPath:path ];
+    }
+    [pathOfWallNode closePath];
+    wallNode.path = [pathOfWallNode CGPath];
+    wallNode.fillColor = [Colors wallColor];
+    wallNode.strokeColor = [Colors wallColor];
+    
+    NSMutableArray * arrayOfBodies =  [NSMutableArray array];
+    for (UIBezierPath * path in  arrayOfPaths) {
+        SKPhysicsBody * body  = [SKPhysicsBody bodyWithPolygonFromPath:[path CGPath]];
+        [arrayOfBodies addObject:body];
+    }
+    
+    wallNode.physicsBody = [SKPhysicsBody bodyWithBodies:arrayOfBodies];
+    wallNode.physicsBody.dynamic = NO;
+    wallNode.physicsBody.categoryBitMask = wallCategory;
+    wallNode.physicsBody.contactTestBitMask = sheepCategory;
+    wallNode.physicsBody.friction = 0.0f;
+    wallNode.position = CGPointMake (0,0);
+
+    
+   arrayOfPlaygrounObjects = [[arrayOfPlaygrounObjects initWithArray:@[wallNode,startPointNode,finalPointNode]] mutableCopy]; // the base elements of a playground
+
+    
+    return arrayOfPlaygrounObjects;
+}
+
+/*
+- (SKShapeNode *) wallNodeWithScreenWidth: (CGFloat)width andScreenHeigth:(CGFloat)height andMatrice:(NSArray *) matrice
 {
     SKShapeNode * node = [[SKShapeNode alloc] init];
     UIBezierPath * pathOfNode = [[UIBezierPath alloc ]init];
@@ -129,15 +227,15 @@ CGFloat heightOfRect;
                     
                     break;
                     
-                case 2:
-                    self.startPointNode = [self startPointNodeAtPoint:CGPointMake(offsetPoint.x+widthOfRect/2, offsetPoint.y+heightOfRect/2)];
-                    break;
-                    
-                    
-                    
-                case 4:
-                    self.finalPointNode = [self finalPointNodeAtPoint:CGPointMake(offsetPoint.x+widthOfRect/2, offsetPoint.y+heightOfRect/2)];
-                    break;
+//                case 2:
+//                    self.startPointNode = [self startPointNodeAtPoint:CGPointMake(offsetPoint.x+widthOfRect/2, offsetPoint.y+heightOfRect/2)];
+//                    break;
+//                    
+//                    
+//                    
+//                case 4:
+//                    self.finalPointNode = [self finalPointNodeAtPoint:CGPointMake(offsetPoint.x+widthOfRect/2, offsetPoint.y+heightOfRect/2)];
+//                    break;
             }
             
             
@@ -172,7 +270,10 @@ CGFloat heightOfRect;
     
 }
 
--(SKShapeNode *)startPointNodeAtPoint:(CGPoint) point
+
+*/
+
++(SKShapeNode *)startPointNodeAtPoint:(CGPoint) point
 {
     SKShapeNode * node = [[SKShapeNode alloc] init];
     UIBezierPath * path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, START_WIDTH, START_WIDTH)];
@@ -190,7 +291,7 @@ CGFloat heightOfRect;
 
     return node;
 }
--(SKShapeNode *)finalPointNodeAtPoint:(CGPoint) point
++(SKShapeNode *)finalPointNodeAtPoint:(CGPoint) point
 {
     SKShapeNode * node = [[SKShapeNode alloc] init];
     UIBezierPath * path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, FINAL_WIDTH, FINAL_WIDTH)];

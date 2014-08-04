@@ -7,7 +7,6 @@
 //
 #import <CoreMotion/CoreMotion.h>
 #import "MyScene.h"
-#import "Spawner.h"
 @interface MyScene()<SKPhysicsContactDelegate,UIAccelerometerDelegate>
 {
     CGRect screenRect;
@@ -17,11 +16,7 @@
     double currentMaxAccelY;
 
 }
-@property (nonatomic, strong)Spawner * game;
-@property (nonatomic, strong)SheepNode * sheep;
-@property (nonatomic, strong)SKShapeNode * walls;
-@property (nonatomic, strong)SKEmitterNode * rain;
-@property (nonatomic, strong)SKNode * rainArea;
+@property (nonatomic, strong)GameLevel * game;
 @property (nonatomic, strong)SKLabelNode * label;
 @property (nonatomic, strong) CMMotionManager * motionManager;
 @end
@@ -39,7 +34,8 @@
     }
     return _motionManager;
 }
--(id)initWithSize:(CGSize)size {    
+-(id)initWithSize:(CGSize)size andGameLevel:(GameLevel*) game
+{
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         screenRect = [[UIScreen mainScreen] bounds];
@@ -66,35 +62,25 @@
        // }
         
         self.backgroundColor = [Colors sceneColor];
-        self.game = [[Spawner alloc ]init];
+        [self.game initPlaygroundWithWidth:screenWidth andHeigth:screenHeight];
+        SKNode * rain = [Spawner rainWithHeight:screenHeight];
+        [self.game addSupplementaryNode:rain];
+        rain.position = CGPointMake(0, screenHeight);
+        for (SKNode * node in self.game.arrayOfPlaygroundObjects) {
+            [self addChild:node];
+        }
+        [self addChild:self.game.sheep];
         
-        self.sheep =  [Spawner sheepNode];
-        self.walls =  [self.game wallNodeWithScreenWidth:screenWidth andScreenHeigth:screenHeight];
-        self.rain = [Spawner rain];
-        self.rainArea = [self.game rainAreaFromRainNode:self.rain andHeight:screenHeight];
-        
-        self.walls.position = CGPointMake (0,0);
-        
-        self.rain.position = CGPointMake(0, screenHeight);
 
-        
-        self.physicsBody= [SKPhysicsBody bodyWithEdgeLoopFromRect:screenRect]; // physic body of the scene (the ball can't escape)
-        //[self addChild:self.walls];
-        [self addChild:self.sheep];
-        [self addChild:self.rain];
-        [self addChild:self.rainArea];
-        [self addChild:self.game.startPointNode];
-        [self addChild:self.game.finalPointNode];
         self.label = [[SKLabelNode alloc ]init];
         self.label.fontColor = [SKColor blackColor];
         self.label.fontSize  = 11;
         self.label.position = CGPointMake(120, 120);
         [self addChild:self.label];
         
-        
+        self.physicsBody= [SKPhysicsBody bodyWithEdgeLoopFromRect:screenRect]; // physic body of the scene (the ball can't escape)
         self.physicsWorld.gravity = CGVectorMake(0, 0);
         self.physicsBody.usesPreciseCollisionDetection = YES;
-        
         self.physicsWorld.contactDelegate = self; // if there's a collision, the scene receive the notification
         self.gameRunning = NO;
 
@@ -107,8 +93,8 @@
 {
     self.paused  = NO;
     if (!self.gameRunning ) {
-        self.sheep.position = self.game.startPointNode.position;
-        [self.sheep resetColor];
+        self.game.sheep.position = self.game.startPointNode.position;
+        [self.game.sheep resetColor];
         self.gameRunning = YES;
     }
     if ([self.motionManager isAccelerometerAvailable]) {
@@ -130,16 +116,15 @@
 -(void) pauseGame
 {
     [self.motionManager stopAccelerometerUpdates ];
-    //self.physicsWorld.gravity = CGVectorMake(0, 0);  // at start we have no gravity going on
-    //self.sheep.physicsBody.velocity = CGVectorMake(0, 0);;
+
     self.paused = YES;
     
 }
 -(void)alert:(NSString *)msg
 {
    
-    [[[UIAlertView alloc] initWithTitle:@"Erreur"
-                                message:msg
+    [[[UIAlertView alloc] initWithTitle:msg
+                                message:@"Le chemin vers la pureté est encore long..."
                                delegate:nil
                       cancelButtonTitle:@"Ok"
                       otherButtonTitles:nil
@@ -202,27 +187,34 @@
     BOOL end = NO;
     BOOL win;
 
-    if ([contact.bodyB.node isEqual:self.sheep ] && [contact.bodyA.node isEqual:self.walls])
+    if ([contact.bodyB.node isEqual:self.game.sheep ] && [contact.bodyA.node isEqual:[self.game.arrayOfPlaygroundObjects objectAtIndex:0]])
     {
-      end =   [self.sheep addDirt];
-    }else if ([contact.bodyA.node isEqual:self.sheep ] && [contact.bodyB.node isEqual:self.walls])
+      end =   [self.game.sheep addDirt];
+    }else if ([contact.bodyA.node isEqual:self.game.sheep ] && [contact.bodyB.node isEqual:[self.game.arrayOfPlaygroundObjects objectAtIndex:0]])
     {
-     end =    [self.sheep addDirt];
+     end =    [self.game.sheep addDirt];
 
     }
-    if ([contact.bodyB.node isEqual:self.sheep ] && [contact.bodyA.node isEqual:self.rainArea])
+    if ([contact.bodyB.node isEqual:self.game.sheep ] && [contact.bodyA.node isEqual:[self.game.arrayOfPlaygroundObjects objectAtIndex:3]])
     {
-          [self.sheep cleanSheep];
-    }else if ([contact.bodyA.node isEqual:self.sheep ] && [contact.bodyB.node isEqual:self.rainArea])
+        if([[self.game.arrayOfPlaygroundObjects objectAtIndex:3] isKindOfClass:[CustomEmmiterNode class]])
+        {
+            [self.game.sheep cleanSheep];
+   
+        }
+    }else if ([contact.bodyA.node isEqual:self.game.sheep ] && [contact.bodyB.node isEqual:[self.game.arrayOfPlaygroundObjects objectAtIndex:3]])
     {
-           [self.sheep cleanSheep];
-        
+        if([[self.game.arrayOfPlaygroundObjects objectAtIndex:3] isKindOfClass:[CustomEmmiterNode class]])
+        {
+            [self.game.sheep cleanSheep];
+            
+        }
     }
     
-    if ([contact.bodyB.node isEqual:self.sheep ] && [contact.bodyA.node isEqual:self.game.finalPointNode])
+    if ([contact.bodyB.node isEqual:self.game.sheep ] && [contact.bodyA.node isEqual:self.game.finalPointNode])
     {
         win = YES;
-    }else if ([contact.bodyA.node isEqual:self.sheep ] && [contact.bodyB.node isEqual:self.game.finalPointNode])
+    }else if ([contact.bodyA.node isEqual:self.game.sheep ] && [contact.bodyB.node isEqual:self.game.finalPointNode])
     {
         win = YES;
 
@@ -231,6 +223,7 @@
     if (end && self.gameRunning) {
         
         [self pauseGame]  ;
+        self.game.win = @(!end);
         [self alert:@"GAME OVER"];
         self.gameRunning = NO;
 
@@ -238,6 +231,7 @@
     if (win && self.gameRunning) {
         
         [self pauseGame]  ;
+        self.game.win = @(win);
         [self alert:@"YOU WIN !!"];
         self.gameRunning = NO;
         

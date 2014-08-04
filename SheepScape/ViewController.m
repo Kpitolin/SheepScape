@@ -8,11 +8,12 @@
 
 #import "ViewController.h"
 #import "MyScene.h"
-@interface ViewController()
+@interface ViewController()<WinDelegate>
 @property (nonatomic, strong)MyScene * scene;
-
+@property (nonatomic , strong)GameLevel * currentGame;
 @end
 @implementation ViewController
+//   KTAchievementCondition *condition = [[KTAchievementCondition alloc] initWithPlistRepresentation:conditionPlist];
 
 - (void)viewDidLoad
 {
@@ -24,7 +25,7 @@
     skView.showsNodeCount = YES;
     skView.showsPhysics = YES;
     // Create and configure the scene.
-    self.scene = [MyScene sceneWithSize:skView.bounds.size];
+    self.scene = [self.scene initWithSize:self.view.bounds.size andGameLevel:self.currentGame];
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)]];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
@@ -33,6 +34,7 @@
                                                   usingBlock:^(NSNotification * note){
                                                       [self.scene pauseGame];
                                                   }];
+    self.currentGame.delegate = self;
     
 
     // Present the scene.
@@ -53,6 +55,21 @@
     }
 }
 
+
+// Find a system to pass to next level
+#define LEVEL_PLIST_PATH [[NSBundle mainBundle] pathForResource:@"DrawerMenu" ofType:@"plist"]
+
+- (GameLevel *) currentGame
+{
+    GameLevel * game;
+    if (!_currentGame) {
+         game = [[GameLevel alloc ]init];
+        _currentGame = game;
+    }
+    _currentGame = [_currentGame initWithPlistRepresentation: [NSDictionary dictionaryWithContentsOfFile:LEVEL_PLIST_PATH]];
+
+    return _currentGame;
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -64,7 +81,8 @@
         [self.scene resumeGame];
         
     } else if([self.scene isPaused] && !self.scene.gameRunning){
-        self.scene = [MyScene sceneWithSize:self.view.bounds.size];
+        self.scene = [self.scene initWithSize:self.view.bounds.size andGameLevel:self.currentGame];
+        
         [(SKView *)self.view presentScene:self.scene transition:[SKTransition pushWithDirection:SKTransitionDirectionUp duration:2.0]];
 
         
@@ -78,4 +96,14 @@
 
 
 }
+
+
+- (void)userFinishedLevel:(GameLevel *)sender
+{
+    self.currentGame.level =  @([self.currentGame.level intValue]+1);
+    self.scene = [self.scene initWithSize:self.view.bounds.size andGameLevel:self.currentGame];
+    
+    [(SKView *)self.view presentScene:self.scene transition:[SKTransition pushWithDirection:SKTransitionDirectionUp duration:3.0]];
+}
+
 @end

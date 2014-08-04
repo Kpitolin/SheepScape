@@ -7,17 +7,15 @@
 //
 #import <Foundation/Foundation.h>
 #import "SheepNode.h"
+#import "CustomEmmiterNode.h"
 
 @import SpriteKit;
 @interface Spawner : NSObject
-@property (nonatomic,strong) SKShapeNode * startPointNode;
-@property (nonatomic,strong) SKShapeNode * finalPointNode;
-
-
 
 + (SheepNode *) sheepNode;
-- (SKShapeNode *) wallNodeWithScreenWidth: (CGFloat)width andScreenHeigth:(CGFloat)height;
-+(SKEmitterNode *)rain;
--(SKShapeNode *) rainAreaFromRainNode:(SKEmitterNode *)rain andHeight:(CGFloat)height;
-
++(CustomEmmiterNode *)rainWithHeight:(CGFloat)height;
++(SKShapeNode *) rainAreaFromRainNode:(SKEmitterNode *)rain andHeight:(CGFloat)height;
++(SKShapeNode *)startPointNodeAtPoint:(CGPoint) point;
++(SKShapeNode *)finalPointNodeAtPoint:(CGPoint) point;
++ (NSMutableArray *) createPlaygroundWithWidth: (CGFloat)width andHeigth:(CGFloat)height andMatrice:(NSArray *) matrice;
 @end

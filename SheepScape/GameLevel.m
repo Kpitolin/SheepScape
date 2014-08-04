@@ -14,23 +14,79 @@
 
 @implementation GameLevel
 
-//- (id)initWithPlistRepresentation:(id)plistRep
-//{
-//    self = [super init];
-//    if (self) {
-//        _localizedTitle = NSLocalizedString(plistRep[@"title"], nil);
-//        _localizedMessage = NSLocalizedString(plistRep[@"message"], nil);
-//        NSArray *actionsPlist = plistRep[@"actions"];
-//        NSMutableArray *actions = [[NSMutableArray alloc] initWithCapacity:[actionsPlist count]];
-//        for (NSDictionary *actionPlistRep in actionsPlist) {
-//            NSMutableDictionary *action = [[NSMutableDictionary alloc] init];
-//            [action setObject:NSLocalizedString(actionPlistRep[@"title"], nil) forKey:@"localizedTitle"];
-//            [action setObject:actionPlistRep[@"action"] forKey:@"action"];
-//            [action setObjectOrNil:actionPlistRep[@"userInfo"] forKey:@"userInfo"];
-//            [actions addObject:action];
-//        }
-//        _actions = [actions copy];
-//    }
-//    return self;
-//}
+- (id)initWithPlistRepresentation:(id)plistRep
+{
+    self = [super init];
+    
+    if (self)
+        
+    {
+
+        NSDictionary *levelRep = plistRep[[NSString stringWithFormat:@"Level %i",[self.level intValue]>0? [self.level intValue]:1]];
+        NSArray *matrice = levelRep[@"Matrice"];
+        _matrice = [matrice copy];
+        _sheep = [Spawner sheepNode];
+    }
+    
+    return self;
+}
+
+
+- (SKShapeNode *) startPointNode
+{
+    if (_arrayOfPlaygroundObjects) {
+      return   _arrayOfPlaygroundObjects[1];
+    }
+    
+    return nil;
+}
+- (SKShapeNode *) finalPointNode
+{
+    if (_arrayOfPlaygroundObjects) {
+        return   _arrayOfPlaygroundObjects[2];
+    }
+    
+    return nil;
+}
+
+- (void) initPlaygroundWithWidth: (CGFloat)width andHeigth:(CGFloat)height
+{
+    if(_matrice)
+    {
+        _arrayOfPlaygroundObjects =  [Spawner createPlaygroundWithWidth:width andHeigth:height andMatrice:self.matrice];
+    }
+    else
+    {
+        NSLog(@"Playground Creation Error");
+    }
+    
+}
+
+
+- (BOOL) addSupplementaryNode:(SKNode *)node
+{
+    BOOL success  = NO;
+    if(_arrayOfPlaygroundObjects && ![_arrayOfPlaygroundObjects containsObject:node])
+    {
+        NSMutableArray *array =  [self.arrayOfPlaygroundObjects mutableCopy];
+        [array addObject:node];
+        self.arrayOfPlaygroundObjects = array;
+        success  = YES;
+        
+    }
+  
+    
+    
+    return success;
+}
+
+-(void) setWin:(NSNumber *)win
+{
+    _win = win;
+
+    if ([win boolValue] && [self.delegate respondsToSelector:@selector(userFinishedLevel:)]) {
+        [self.delegate userFinishedLevel:self];
+    }
+}
+
 @end
