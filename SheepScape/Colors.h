@@ -9,9 +9,14 @@
 #import <Foundation/Foundation.h>
 @import SpriteKit;
 @interface Colors : NSObject
++(SKColor *) start;
++(SKColor *) final;
 +(SKColor *) sheepColor;
 +(SKColor *) wallColor;
++(SKColor *) sceneColor;
++(SKColor *) rainColor;
 + (SKColor *)darkerColorForColor:(SKColor *)c;
-+ ( BOOL)isDark:(SKColor *)c;
++ (SKColor *)brighterColorForColor:(SKColor *)c;
++ (BOOL)isDark:(SKColor *)c;
 
 @end

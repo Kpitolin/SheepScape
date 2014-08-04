@@ -20,7 +20,12 @@
 
     return node;
 }
-
+-(void) resetColor
+{
+    self.fillColor = [Colors sheepColor];
+    self.strokeColor = [Colors sheepColor];
+    self.emmiterNode.particleColor = [Colors sheepColor];
+}
 -(SKEmitterNode *)emmiterNode
 {
     if(!_emmiterNode)
@@ -57,6 +62,12 @@
     return dirty;
   
 }
-
+-(void)cleanSheep
+{
+    self.fillColor = [Colors brighterColorForColor:self.fillColor];
+    self.strokeColor = [Colors brighterColorForColor:self.strokeColor];
+    self.emmiterNode.particleColor = [Colors brighterColorForColor:self.emmiterNode.particleColor];
+    
+}
 
 @end

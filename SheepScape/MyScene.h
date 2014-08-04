@@ -10,4 +10,7 @@
 
 @interface MyScene : SKScene
 
+-(void) pauseGame;
+-(void)resumeGame;
+
 @end

@@ -8,7 +8,10 @@
 
 #import "ViewController.h"
 #import "MyScene.h"
+@interface ViewController()
+@property (nonatomic, strong)MyScene * scene;
 
+@end
 @implementation ViewController
 
 - (void)viewDidLoad
@@ -19,12 +22,21 @@
     SKView * skView = (SKView *)self.view;
     skView.showsFPS = NO;
     skView.showsNodeCount = YES;
+    skView.showsPhysics = YES;
     // Create and configure the scene.
-    SKScene * scene = [MyScene sceneWithSize:skView.bounds.size];
-    scene.scaleMode = SKSceneScaleModeAspectFill;
+    self.scene = [MyScene sceneWithSize:skView.bounds.size];
+    self.scene.scaleMode = SKSceneScaleModeAspectFill;
+    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)]];
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification * note){
+                                                      [self.scene pauseGame];
+                                                  }];
     
+
     // Present the scene.
-    [skView presentScene:scene];
+    [skView presentScene:self.scene];
 }
 
 - (BOOL)shouldAutorotate
@@ -47,4 +59,13 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+-(void)tap{
+    if ([self.scene isPaused]) {
+        [self.scene resumeGame];
+        
+    } else{
+        [self.scene pauseGame];
+        
+    }
+}
 @end

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE1012F8198E5323004C38BD /* LevelsConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE1012F7198E5323004C38BD /* LevelsConfig.plist */; };
+		DE1012FA198E5339004C38BD /* Levels.strings in Resources */ = {isa = PBXBuildFile; fileRef = DE1012F9198E5339004C38BD /* Levels.strings */; };
+		DE1012FD198ECD37004C38BD /* GameLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = DE1012FC198ECD37004C38BD /* GameLevel.m */; };
+		DE101300198ED16B004C38BD /* CustomEmmiterNode.m in Sources */ = {isa = PBXBuildFile; fileRef = DE1012FF198ED16B004C38BD /* CustomEmmiterNode.m */; };
 		DE555F2B198CF80600AFFFE4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE555F2A198CF80600AFFFE4 /* Foundation.framework */; };
 		DE555F2D198CF80600AFFFE4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE555F2C198CF80600AFFFE4 /* CoreGraphics.framework */; };
 		DE555F2F198CF80600AFFFE4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE555F2E198CF80600AFFFE4 /* UIKit.framework */; };
@@ -43,6 +47,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DE1012F7198E5323004C38BD /* LevelsConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LevelsConfig.plist; sourceTree = "<group>"; };
+		DE1012F9198E5339004C38BD /* Levels.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Levels.strings; sourceTree = "<group>"; };
+		DE1012FB198ECD37004C38BD /* GameLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLevel.h; sourceTree = "<group>"; };
+		DE1012FC198ECD37004C38BD /* GameLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLevel.m; sourceTree = "<group>"; };
+		DE1012FE198ED16B004C38BD /* CustomEmmiterNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomEmmiterNode.h; sourceTree = "<group>"; };
+		DE1012FF198ED16B004C38BD /* CustomEmmiterNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomEmmiterNode.m; sourceTree = "<group>"; };
 		DE555F27198CF80600AFFFE4 /* SheepScape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SheepScape.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE555F2A198CF80600AFFFE4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DE555F2C198CF80600AFFFE4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -151,6 +161,12 @@
 				DE555F48198CF80700AFFFE4 /* MyScene.m */,
 				DE555F6D198D272100AFFFE4 /* Spawner.h */,
 				DE555F6E198D272100AFFFE4 /* Spawner.m */,
+				DE1012FB198ECD37004C38BD /* GameLevel.h */,
+				DE1012FC198ECD37004C38BD /* GameLevel.m */,
+				DE1012FE198ED16B004C38BD /* CustomEmmiterNode.h */,
+				DE1012FF198ED16B004C38BD /* CustomEmmiterNode.m */,
+				DE1012F7198E5323004C38BD /* LevelsConfig.plist */,
+				DE1012F9198E5339004C38BD /* Levels.strings */,
 				DE5E0E21198D5E4D00449D09 /* SheepNode.h */,
 				DE5E0E22198D5E4D00449D09 /* SheepNode.m */,
 				DE555F70198D295F00AFFFE4 /* Colors.h */,
@@ -267,10 +283,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE555F6B198D1E1700AFFFE4 /* Cloudy.sks in Resources */,
+				DE1012FA198E5339004C38BD /* Levels.strings in Resources */,
 				DE555F4D198CF80700AFFFE4 /* Images.xcassets in Resources */,
 				DE555F74198D2BFD00AFFFE4 /* Rain.sks in Resources */,
 				DE555F6C198D1E1700AFFFE4 /* spark.png in Resources */,
 				DE555F43198CF80700AFFFE4 /* Main_iPad.storyboard in Resources */,
+				DE1012F8198E5323004C38BD /* LevelsConfig.plist in Resources */,
 				DE555F40198CF80700AFFFE4 /* Main_iPhone.storyboard in Resources */,
 				DE555F37198CF80600AFFFE4 /* InfoPlist.strings in Resources */,
 			);
@@ -294,8 +312,10 @@
 				DE5E0E23198D5E4D00449D09 /* SheepNode.m in Sources */,
 				DE555F49198CF80700AFFFE4 /* MyScene.m in Sources */,
 				DE555F72198D295F00AFFFE4 /* Colors.m in Sources */,
+				DE1012FD198ECD37004C38BD /* GameLevel.m in Sources */,
 				DE555F46198CF80700AFFFE4 /* ViewController.m in Sources */,
 				DE555F3D198CF80600AFFFE4 /* AppDelegate.m in Sources */,
+				DE101300198ED16B004C38BD /* CustomEmmiterNode.m in Sources */,
 				DE555F39198CF80600AFFFE4 /* main.m in Sources */,
 				DE555F6F198D272100AFFFE4 /* Spawner.m in Sources */,
 			);

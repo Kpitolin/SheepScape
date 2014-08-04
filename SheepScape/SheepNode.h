@@ -8,11 +8,11 @@
 @import SpriteKit;
 #import <Foundation/Foundation.h>
 #import "Colors.h"
-#define SHEEP_WIDTH 10
-#define SHEEP_GLOW_WIDTH 5
+#import "AppConst.h"
 @interface SheepNode : SKShapeNode
 @property (nonatomic, strong) SKEmitterNode * emmiterNode;
 - (SheepNode *) create;
 -(BOOL)addDirt;
-
+-(void)cleanSheep;
+-(void)resetColor;
 @end
