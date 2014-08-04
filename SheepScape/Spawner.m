@@ -33,12 +33,14 @@
     CGPoint origin =  rain.position;
     UIBezierPath * path = [UIBezierPath bezierPathWithRect:CGRectMake(origin.x, origin.y, rain.particlePositionRange.dx/2, height)];
     node.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromPath:[path CGPath]];
-    node.physicsBody.dynamic = NO;
-    node.physicsBody.friction = 0.3f;
-    node.physicsBody.restitution = 0.0f;
-    node.physicsBody.linearDamping = 1.0f;
+    node.physicsBody.affectedByGravity = NO;
+//    node.physicsBody.friction = 1.0f;
+//    node.physicsBody.restitution = 0.0f;
+//    node.physicsBody.linearDamping = 1.0f;
     node.physicsBody.categoryBitMask = rainAreaCategory;
     node.physicsBody.contactTestBitMask = sheepCategory;
+    node.physicsBody.collisionBitMask = 1;
+
 
     return node;
 }
@@ -52,10 +54,10 @@
     node.physicsBody.dynamic = YES;
     node.physicsBody.categoryBitMask = sheepCategory;
     node.physicsBody.contactTestBitMask = wallCategory;
-    node.physicsBody.friction = 0.3f;
-    node.physicsBody.restitution = 1.0f;
-    node.physicsBody.linearDamping = 0.0f;
-    node.physicsBody.allowsRotation = NO;
+//    node.physicsBody.friction = 0.3f;
+//    node.physicsBody.restitution = 1.0f;
+//    node.physicsBody.linearDamping = 0.0f;
+//    node.physicsBody.allowsRotation = NO;
     return node;
 }
 

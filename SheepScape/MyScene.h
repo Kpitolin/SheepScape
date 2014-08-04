@@ -9,6 +9,7 @@
 #import <SpriteKit/SpriteKit.h>
 
 @interface MyScene : SKScene
+@property BOOL gameRunning;
 
 -(void) pauseGame;
 -(void)resumeGame;

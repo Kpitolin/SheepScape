@@ -22,13 +22,13 @@
 @property (nonatomic, strong)SKShapeNode * walls;
 @property (nonatomic, strong)SKEmitterNode * rain;
 @property (nonatomic, strong)SKNode * rainArea;
+@property (nonatomic, strong)SKLabelNode * label;
 @property (nonatomic, strong) CMMotionManager * motionManager;
-@property BOOL gameRunning;
 @end
 
 @implementation MyScene
 
-#define UPDATES_PER_SECOND 100
+#define UPDATES_PER_SECOND 1000
 -(CMMotionManager *) motionManager
 {
     if (!_motionManager)
@@ -79,13 +79,17 @@
 
         
         self.physicsBody= [SKPhysicsBody bodyWithEdgeLoopFromRect:screenRect]; // physic body of the scene (the ball can't escape)
-        [self addChild:self.walls];
+        //[self addChild:self.walls];
         [self addChild:self.sheep];
         [self addChild:self.rain];
         [self addChild:self.rainArea];
         [self addChild:self.game.startPointNode];
         [self addChild:self.game.finalPointNode];
-
+        self.label = [[SKLabelNode alloc ]init];
+        self.label.fontColor = [SKColor blackColor];
+        self.label.fontSize  = 11;
+        self.label.position = CGPointMake(120, 120);
+        [self addChild:self.label];
         
         
         self.physicsWorld.gravity = CGVectorMake(0, 0);
@@ -144,8 +148,8 @@
 
 -(void)outputAccelertionData:(CMAcceleration)acceleration
 {
-    currentMaxAccelX = 0;
-    currentMaxAccelY = 0;
+    //currentMaxAccelX = 0;
+   // currentMaxAccelY = 0;
     
 //    UIDevice * device  = [UIDevice currentDevice];
 //
@@ -165,6 +169,7 @@
 //        
 //    }else if ( device.orientation == UIDeviceOrientationPortrait )
 //    {
+    
         currentMaxAccelX = acceleration.x;
         currentMaxAccelY = acceleration.y;
         
@@ -179,14 +184,14 @@
     float newX = 0;
     
    
-        newX = currentMaxAccelX*2;
-        newY = currentMaxAccelY*2;
+        newX = currentMaxAccelX*4;
+        newY = currentMaxAccelY*4;
 
     
 
     self.physicsWorld.gravity= CGVectorMake(newX, newY);
 
-    
+    self.label.text = [NSString stringWithFormat:@"%f,%f|| %f,%f ",self.physicsWorld.gravity.dx,self.physicsWorld.gravity.dx, self.motionManager.accelerometerData.acceleration.x, self.motionManager.accelerometerData.acceleration.y];
 }
 
 
@@ -194,7 +199,7 @@
 
 -(void) didBeginContact:(SKPhysicsContact *)contact
 {
-    BOOL end;
+    BOOL end = NO;
     BOOL win;
 
     if ([contact.bodyB.node isEqual:self.sheep ] && [contact.bodyA.node isEqual:self.walls])

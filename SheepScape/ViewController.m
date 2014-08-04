@@ -60,12 +60,22 @@
 }
 
 -(void)tap{
-    if ([self.scene isPaused]) {
+    if ([self.scene isPaused] && self.scene.gameRunning) {
         [self.scene resumeGame];
         
-    } else{
-        [self.scene pauseGame];
+    } else if([self.scene isPaused] && !self.scene.gameRunning){
+        self.scene = [MyScene sceneWithSize:self.view.bounds.size];
+        [(SKView *)self.view presentScene:self.scene transition:[SKTransition pushWithDirection:SKTransitionDirectionUp duration:2.0]];
+
         
     }
+    else
+    {
+        [self.scene pauseGame];
+
+    }
+    
+
+
 }
 @end
