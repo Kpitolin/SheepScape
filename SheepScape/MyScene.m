@@ -22,7 +22,7 @@
 
 @implementation MyScene
 
-#define UPDATES_PER_SECOND 1000
+#define UPDATES_PER_SECOND 60
 -(CMMotionManager *) motionManager
 {
     if (!_motionManager)
@@ -74,7 +74,7 @@
         
 
         self.label = [[SKLabelNode alloc ]init];
-        self.label.fontColor = [SKColor blackColor];
+        self.label.fontColor = [SKColor whiteColor];
         self.label.fontSize  = 11;
         self.label.position = CGPointMake(120, 120);
         [self addChild:self.label];
@@ -155,29 +155,31 @@
 //        
 //    }else if ( device.orientation == UIDeviceOrientationPortrait )
 //    {
+        float newY = 0;
+        float newX = 0;
     
-        currentMaxAccelX = acceleration.x;
-        currentMaxAccelY = acceleration.y;
-        
+    
+       // currentMaxAccelX = acceleration.x;
+        //currentMaxAccelY = acceleration.y;
+      //  newX = currentMaxAccelX*4;
+       // newY = currentMaxAccelY*4;
+    
+    
+    
+    self.physicsWorld.gravity= CGVectorMake(acceleration.x, acceleration.y);
+        self.label.text = [NSString stringWithFormat:@"%f,%f || %f,%f ",self.physicsWorld.gravity.dx,self.physicsWorld.gravity.dy, self.motionManager.accelerometerData.acceleration.x, self.motionManager.accelerometerData.acceleration.y];
     //}
 }
 
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
     
-    
-    float newY = 0;
-    float newX = 0;
+   
     
    
-        newX = currentMaxAccelX*4;
-        newY = currentMaxAccelY*4;
-
     
 
-    self.physicsWorld.gravity= CGVectorMake(newX, newY);
-
-    self.label.text = [NSString stringWithFormat:@"%f,%f|| %f,%f ",self.physicsWorld.gravity.dx,self.physicsWorld.gravity.dx, self.motionManager.accelerometerData.acceleration.x, self.motionManager.accelerometerData.acceleration.y];
+    
 }
 
 

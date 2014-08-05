@@ -21,8 +21,8 @@
     // Configure the view.
     SKView * skView = (SKView *)self.view;
     skView.showsFPS = NO;
-    skView.showsNodeCount = YES;
-    skView.showsPhysics = YES;
+   // skView.showsNodeCount = YES;
+   // skView.showsPhysics = YES;
     // Create and configure the scene.
     self.currentGame.delegate = self;
     self.scene = [[MyScene alloc ]init];
