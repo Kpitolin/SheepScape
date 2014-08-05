@@ -12,9 +12,9 @@
 @protocol WinDelegate;
 
 @interface GameLevel : NSObject
+@property (nonatomic, strong) NSArray * arrayOfPlaygroundObjects;
 @property (nonatomic,strong) SKShapeNode * startPointNode;
 @property (nonatomic,strong) SKShapeNode * finalPointNode;
-@property (nonatomic, strong) NSArray * arrayOfPlaygroundObjects;
 @property (nonatomic, strong) NSArray * matrice;
 @property (nonatomic, strong) SheepNode * sheep;
 @property (nonatomic, strong) NSNumber * level;

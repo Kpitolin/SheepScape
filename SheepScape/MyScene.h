@@ -11,6 +11,7 @@
 
 @interface MyScene : SKScene
 @property BOOL gameRunning;
+@property (nonatomic, strong)GameLevel * game;
 
 -(id)initWithSize:(CGSize)size andGameLevel:(GameLevel*) game;
 -(void) pauseGame;

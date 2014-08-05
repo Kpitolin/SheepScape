@@ -16,7 +16,6 @@
     double currentMaxAccelY;
 
 }
-@property (nonatomic, strong)GameLevel * game;
 @property (nonatomic, strong)SKLabelNode * label;
 @property (nonatomic, strong) CMMotionManager * motionManager;
 @end
@@ -38,6 +37,7 @@
 {
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
+        _game = game;
         screenRect = [[UIScreen mainScreen] bounds];
 //        UIDevice * device  = [UIDevice currentDevice];
         
@@ -63,11 +63,12 @@
         
         self.backgroundColor = [Colors sceneColor];
         [self.game initPlaygroundWithWidth:screenWidth andHeigth:screenHeight];
-        SKNode * rain = [Spawner rainWithHeight:screenHeight];
-        [self.game addSupplementaryNode:rain];
-        rain.position = CGPointMake(0, screenHeight);
+       // CustomEmmiterNode * rain = [Spawner rainWithHeight:screenHeight];
+        //[self.game addSupplementaryNode:rain];
+        //rain.position = CGPointMake(0, screenHeight);
+       ((SKNode *)self.game.arrayOfPlaygroundObjects[0]).position = CGPointMake(0, 0);
         for (SKNode * node in self.game.arrayOfPlaygroundObjects) {
-            [self addChild:node];
+            if (node != nil) [self addChild:node];
         }
         [self addChild:self.game.sheep];
         
@@ -185,7 +186,7 @@
 -(void) didBeginContact:(SKPhysicsContact *)contact
 {
     BOOL end = NO;
-    BOOL win;
+    BOOL win = NO;
 
     if ([contact.bodyB.node isEqual:self.game.sheep ] && [contact.bodyA.node isEqual:[self.game.arrayOfPlaygroundObjects objectAtIndex:0]])
     {
@@ -195,21 +196,26 @@
      end =    [self.game.sheep addDirt];
 
     }
-    if ([contact.bodyB.node isEqual:self.game.sheep ] && [contact.bodyA.node isEqual:[self.game.arrayOfPlaygroundObjects objectAtIndex:3]])
+    
+    if([self.game.arrayOfPlaygroundObjects count]>= 4)
     {
-        if([[self.game.arrayOfPlaygroundObjects objectAtIndex:3] isKindOfClass:[CustomEmmiterNode class]])
+        if ([contact.bodyB.node isEqual:self.game.sheep ] && [contact.bodyA.node isEqual:[self.game.arrayOfPlaygroundObjects objectAtIndex:3]])
         {
-            [self.game.sheep cleanSheep];
-   
-        }
-    }else if ([contact.bodyA.node isEqual:self.game.sheep ] && [contact.bodyB.node isEqual:[self.game.arrayOfPlaygroundObjects objectAtIndex:3]])
-    {
-        if([[self.game.arrayOfPlaygroundObjects objectAtIndex:3] isKindOfClass:[CustomEmmiterNode class]])
+            if([[self.game.arrayOfPlaygroundObjects objectAtIndex:3] isKindOfClass:[CustomEmmiterNode class]])
+            {
+                [self.game.sheep cleanSheep];
+                
+            }
+        }else if ([contact.bodyA.node isEqual:self.game.sheep ] && [contact.bodyB.node isEqual:[self.game.arrayOfPlaygroundObjects objectAtIndex:3]])
         {
-            [self.game.sheep cleanSheep];
-            
+            if([[self.game.arrayOfPlaygroundObjects objectAtIndex:3] isKindOfClass:[CustomEmmiterNode class]])
+            {
+                [self.game.sheep cleanSheep];
+                
+            }
         }
     }
+
     
     if ([contact.bodyB.node isEqual:self.game.sheep ] && [contact.bodyA.node isEqual:self.game.finalPointNode])
     {

@@ -9,14 +9,12 @@
 #import "CustomEmmiterNode.h"
 
 @implementation CustomEmmiterNode
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        
-        [self addChild:self.physicNode];
-    }
-    return self;
-}
 
+-(void)setPhysicNode:(SKNode *)physicNode
+{
+    if(physicNode)
+        [self addChild:self.physicNode];
+    _physicNode = physicNode;
+    
+}
 @end

@@ -30,12 +30,22 @@
     
     return self;
 }
-
+-(void)setArrayOfPlaygroundObjects:(NSArray *)arrayOfPlaygroundObjects
+{
+    _arrayOfPlaygroundObjects = arrayOfPlaygroundObjects;
+    self.startPointNode= _arrayOfPlaygroundObjects[1];
+    self.finalPointNode = _arrayOfPlaygroundObjects[2];
+}
 
 - (SKShapeNode *) startPointNode
 {
     if (_arrayOfPlaygroundObjects) {
       return   _arrayOfPlaygroundObjects[1];
+    }
+    else
+    {
+        NSLog(@"Playground Creation Error : no start point");
+
     }
     
     return nil;
@@ -44,6 +54,11 @@
 {
     if (_arrayOfPlaygroundObjects) {
         return   _arrayOfPlaygroundObjects[2];
+    }
+    else
+    {
+        NSLog(@"Playground Creation Error : no final point");
+   
     }
     
     return nil;

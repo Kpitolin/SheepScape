@@ -13,7 +13,6 @@
 @property (nonatomic , strong)GameLevel * currentGame;
 @end
 @implementation ViewController
-//   KTAchievementCondition *condition = [[KTAchievementCondition alloc] initWithPlistRepresentation:conditionPlist];
 
 - (void)viewDidLoad
 {
@@ -25,6 +24,8 @@
     skView.showsNodeCount = YES;
     skView.showsPhysics = YES;
     // Create and configure the scene.
+    self.currentGame.delegate = self;
+    self.scene = [[MyScene alloc ]init];
     self.scene = [self.scene initWithSize:self.view.bounds.size andGameLevel:self.currentGame];
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)]];
@@ -34,8 +35,6 @@
                                                   usingBlock:^(NSNotification * note){
                                                       [self.scene pauseGame];
                                                   }];
-    self.currentGame.delegate = self;
-    
 
     // Present the scene.
     [skView presentScene:self.scene];
@@ -57,7 +56,7 @@
 
 
 // Find a system to pass to next level
-#define LEVEL_PLIST_PATH [[NSBundle mainBundle] pathForResource:@"DrawerMenu" ofType:@"plist"]
+#define LEVEL_PLIST_PATH [[NSBundle mainBundle] pathForResource:@"LevelsConfig" ofType:@"plist"]
 
 - (GameLevel *) currentGame
 {
@@ -80,12 +79,6 @@
     if ([self.scene isPaused] && self.scene.gameRunning) {
         [self.scene resumeGame];
         
-    } else if([self.scene isPaused] && !self.scene.gameRunning){
-        self.scene = [self.scene initWithSize:self.view.bounds.size andGameLevel:self.currentGame];
-        
-        [(SKView *)self.view presentScene:self.scene transition:[SKTransition pushWithDirection:SKTransitionDirectionUp duration:2.0]];
-
-        
     }
     else
     {
@@ -100,10 +93,26 @@
 
 - (void)userFinishedLevel:(GameLevel *)sender
 {
-    self.currentGame.level =  @([self.currentGame.level intValue]+1);
-    self.scene = [self.scene initWithSize:self.view.bounds.size andGameLevel:self.currentGame];
-    
-    [(SKView *)self.view presentScene:self.scene transition:[SKTransition pushWithDirection:SKTransitionDirectionUp duration:3.0]];
+    NSDictionary *levelRep = [NSDictionary dictionaryWithContentsOfFile:LEVEL_PLIST_PATH][[NSString stringWithFormat:@"Level %i",[self.currentGame.level intValue]+1]];
+    if (levelRep) {
+        self.currentGame.level =  @([self.currentGame.level intValue]+1);
+        self.scene = [self.scene initWithSize:self.view.bounds.size andGameLevel:self.currentGame];
+        
+        [(SKView *)self.view presentScene:self.scene transition:[SKTransition pushWithDirection:SKTransitionDirectionUp duration:3.0]];
+    }
+    else
+    {
+        
+            
+            [[[UIAlertView alloc] initWithTitle:@"Fin du jeu"
+                                        message:@"Tu es arrivé au bout du chemin"
+                                       delegate:nil
+                              cancelButtonTitle:@"Ok"
+                              otherButtonTitles:nil
+              , nil] show];
+        
+    }
+
 }
 
 @end
