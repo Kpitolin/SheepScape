@@ -50,9 +50,10 @@
     node.physicsBody.dynamic = YES;
     node.physicsBody.categoryBitMask = sheepCategory;
     node.physicsBody.contactTestBitMask = wallCategory;
-//    node.physicsBody.friction = 0.3f;
-//    node.physicsBody.restitution = 1.0f;
-//    node.physicsBody.linearDamping = 0.0f;
+    node.physicsBody.mass = 200;
+    node.physicsBody.friction = 0.3f;
+    node.physicsBody.restitution = 1.0f;
+    node.physicsBody.linearDamping = 0.0f;
 //    node.physicsBody.allowsRotation = NO;
     return node;
 }
