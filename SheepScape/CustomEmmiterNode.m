@@ -10,11 +10,13 @@
 
 @implementation CustomEmmiterNode
 
--(void)setPhysicNode:(SKNode *)physicNode
+-(void)setPhysicEmmiterNode:(SKNode *)physicNode
 {
-    if(physicNode)
-        [self addChild:self.physicNode];
-    _physicNode = physicNode;
+    if(physicNode){
+        [self addChild:self.physicEmmiterNode];
+
+    }
+    _physicEmmiterNode = physicNode;
     
 }
 @end

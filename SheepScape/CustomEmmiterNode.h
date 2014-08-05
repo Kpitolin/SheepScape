@@ -8,6 +8,6 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface CustomEmmiterNode : SKEmitterNode
-@property (nonatomic, strong) SKNode * physicNode;
+@interface CustomEmmiterNode : SKNode
+@property (nonatomic, strong) SKNode * physicEmmiterNode;
 @end

@@ -19,7 +19,7 @@
     emmiterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:particulePath];
     emmiterNode.particleColor = [Colors rainColor];
     emmiterNode.particleColorSequence = nil;
-    emmiterNode.physicNode = [Spawner rainAreaFromRainNode:emmiterNode andHeight:height];
+    emmiterNode.physicEmmiterNode = [Spawner rainAreaFromRainNode:emmiterNode andHeight:height];
 
     return emmiterNode;
 }
