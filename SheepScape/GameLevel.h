@@ -32,5 +32,7 @@
 @end
 @protocol WinDelegate <NSObject>
 - (void)userFinishedLevel:(GameLevel *)sender ;
+- (void)userFailedLevel:(GameLevel *)sender ;
+
 
 @end

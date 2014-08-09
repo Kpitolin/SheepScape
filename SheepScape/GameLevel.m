@@ -21,11 +21,12 @@
     if (self)
         
     {
-
+        
         NSDictionary *levelRep = plistRep[[NSString stringWithFormat:@"Level %i",[self.level intValue]>0? [self.level intValue]:1]];
         NSArray *matrice = levelRep[@"Matrice"];
         _matrice = [matrice copy];
-        _sheep = [Spawner sheepNode];
+        [self.sheep removeAllChildren];
+
     }
     
     return self;
@@ -98,9 +99,12 @@
 -(void) setWin:(NSNumber *)win
 {
     _win = win;
-
     if ([win boolValue] && [self.delegate respondsToSelector:@selector(userFinishedLevel:)]) {
         [self.delegate userFinishedLevel:self];
+    }else if (![win boolValue] && [self.delegate respondsToSelector:@selector(userFailedLevel:)])
+    {
+        [self.delegate userFailedLevel:self];
+
     }
 }
 

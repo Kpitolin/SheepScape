@@ -5,7 +5,7 @@
 //  Created by KEVIN on 02/08/2014.
 //  Copyright (c) 2014 KEVIN. All rights reserved.
 //
-
+#import "UIAlertView+BlockAddition.h"
 #import "ViewController.h"
 #import "MyScene.h"
 @interface ViewController()<WinDelegate>
@@ -93,26 +93,68 @@
 
 - (void)userFinishedLevel:(GameLevel *)sender
 {
-    NSDictionary *levelRep = [NSDictionary dictionaryWithContentsOfFile:LEVEL_PLIST_PATH][[NSString stringWithFormat:@"Level %i",[self.currentGame.level intValue]+1]];
-    if (levelRep) {
-        self.currentGame.level =  @([self.currentGame.level intValue]+1);
-        self.scene = [self.scene initWithSize:self.view.bounds.size andGameLevel:self.currentGame];
-        
-        [(SKView *)self.view presentScene:self.scene transition:[SKTransition pushWithDirection:SKTransitionDirectionUp duration:3.0]];
-    }
-    else
-    {
-        
-            
-            [[[UIAlertView alloc] initWithTitle:@"Fin du jeu"
-                                        message:@"Tu es arrivé au bout du chemin"
-                                       delegate:nil
-                              cancelButtonTitle:@"Ok"
-                              otherButtonTitles:nil
-              , nil] show];
-        
-    }
+    [UIAlertView presentAlertViewWithTitle:@"Tu as gagné"
+                                   message:@"Un petit pas de plus vers l'au-delà..." cancelButtonTitle:nil otherButtonTitles:@[@"Continuer"] completionHandler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                       
+                                       switch (buttonIndex) {
+                                               
+                                           case 0:
+                                           {
+                                               NSDictionary *levelRep = [NSDictionary dictionaryWithContentsOfFile:LEVEL_PLIST_PATH][[NSString stringWithFormat:@"Level %i",[self.currentGame.level intValue]+1]];
+                                               if (levelRep) {
+                                                   self.currentGame.level =  @([self.currentGame.level intValue]+1);
+
+                                                   self.scene = [self.scene initWithSize:self.view.bounds.size andGameLevel:self.currentGame];
+                                                   
+                                                   [(SKView *)self.view presentScene:self.scene transition:[SKTransition pushWithDirection:SKTransitionDirectionUp duration:3.0]];
+                                               }
+                                               else
+                                               {
+                                                   [(SKView *)self.view presentScene:nil transition:[SKTransition doorsOpenHorizontalWithDuration:3.0]];
+                                                   
+                                                   [[[UIAlertView alloc] initWithTitle:@"Fin du jeu"
+                                                                               message:@"Tu es arrivé au bout du chemin"
+                                                                              delegate:nil
+                                                                     cancelButtonTitle:@"Ok"
+                                                                     otherButtonTitles:nil
+                                                     , nil] show];
+                                                   
+                                               }
+                                           }
+                                               break;
+                                               
+                                               
+                                       }
+                                   }];
+
 
 }
+- (void)userFailedLevel:(GameLevel *)sender
+{
+    [UIAlertView presentAlertViewWithTitle:@"Game Over"
+                                   message:@"Le chemin vers la pureté est encore long..." cancelButtonTitle:nil otherButtonTitles:@[@"Recommencer le niveau",@"Recommencer le jeu"] completionHandler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                       
+                                       switch (buttonIndex) {
+                                               
+                                           case 0:
+                                               
+                                               self.scene = [self.scene initWithSize:self.view.bounds.size andGameLevel:self.currentGame];
+                                               [(SKView *)self.view presentScene:self.scene transition:[SKTransition fadeWithColor:[SKColor whiteColor]  duration:3.0]];
+                                               
+
+                                               break;
+                                           case 1:
+                                               self.currentGame.level = @(1);
+                                               self.scene = [self.scene initWithSize:self.view.bounds.size andGameLevel:self.currentGame];
+                                               
+                                               [(SKView *)self.view presentScene:self.scene transition:[SKTransition revealWithDirection:SKTransitionDirectionDown duration:3.0]];
+
+                                               break;
+                                               
+                                               
+                                       }
+                                   }];
+   }
+
 
 @end

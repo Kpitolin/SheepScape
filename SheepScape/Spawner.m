@@ -12,30 +12,36 @@
 @implementation Spawner
 
 
-+(CustomEmmiterNode *)rainWithHeight:(CGFloat)height
++(SKCropNode *)rainWithHeight:(CGFloat)height
 {
-    CustomEmmiterNode * emmiterNode = [[CustomEmmiterNode alloc ] init];
+    SKEmitterNode * emmiterNode = [[SKEmitterNode alloc ] init];
     NSString * particulePath = [[NSBundle mainBundle] pathForResource:@"Rain" ofType:@"sks"];
     emmiterNode = [NSKeyedUnarchiver unarchiveObjectWithFile:particulePath];
-    emmiterNode.particleColor = [Colors rainColor];
     emmiterNode.particleColorSequence = nil;
-    emmiterNode.physicEmmiterNode = [Spawner rainAreaFromRainNode:emmiterNode andHeight:height];
+    emmiterNode.particleColor = [Colors rainColor];
+    SKCropNode * node;
+    node = [Spawner rainAreaFromRainNode:emmiterNode andHeight:height];
+    emmiterNode.targetNode = node;
+    emmiterNode.position = CGPointMake(0,height);
+    [node addChild:emmiterNode];
 
-    return emmiterNode;
+    return node;
 }
-+(SKShapeNode *) rainAreaFromRainNode:(CustomEmmiterNode *)rain andHeight:(CGFloat)height
++(SKCropNode *) rainAreaFromRainNode:(SKEmitterNode *)rain andHeight:(CGFloat)height
 {
-    SKShapeNode * node = [[SKShapeNode alloc] init];
+    SKCropNode * node = [[SKCropNode alloc] init];
     CGPoint origin =  rain.position;
     UIBezierPath * path = [UIBezierPath bezierPathWithRect:CGRectMake(origin.x, origin.y, rain.particlePositionRange.dx/2, height)];
     node.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromPath:[path CGPath]];
+    //node.fillColor = [Colors sceneColor];
+    //node.path = [path CGPath];
     node.physicsBody.affectedByGravity = NO;
-//    node.physicsBody.friction = 1.0f;
-//    node.physicsBody.restitution = 0.0f;
-//    node.physicsBody.linearDamping = 1.0f;
+    node.physicsBody.friction = 1.0f;
+    node.physicsBody.restitution = 0.0f;
+    node.physicsBody.linearDamping = 1.0f;
+    node.physicsBody.collisionBitMask = 0;
     node.physicsBody.categoryBitMask = rainAreaCategory;
     node.physicsBody.contactTestBitMask = sheepCategory;
-    node.physicsBody.collisionBitMask = 1;
 
 
     return node;
@@ -44,17 +50,17 @@
 {
     SheepNode * node = [[SheepNode alloc] init];
     node = [node create];
-    //[node addChild:node.emmiterNode];
     node.emmiterNode.position = CGPointMake(0, 0);
     node.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:SHEEP_WIDTH/2+SHEEP_GLOW_WIDTH center:CGPointMake(SHEEP_WIDTH/2, SHEEP_WIDTH/2)];
     node.physicsBody.dynamic = YES;
+    node.physicsBody.usesPreciseCollisionDetection = YES;
     node.physicsBody.categoryBitMask = sheepCategory;
     node.physicsBody.contactTestBitMask = wallCategory;
-    node.physicsBody.mass = 200;
-    node.physicsBody.friction = 0.3f;
-    node.physicsBody.restitution = 1.0f;
+    node.physicsBody.collisionBitMask = wallCategory;
+    node.physicsBody.mass = 100;
+    node.physicsBody.friction = 0.5f;
+    node.physicsBody.restitution = 0.5f;
     node.physicsBody.linearDamping = 0.0f;
-//    node.physicsBody.allowsRotation = NO;
     return node;
 }
 
@@ -151,8 +157,10 @@
     
     wallNode.physicsBody = [SKPhysicsBody bodyWithBodies:arrayOfBodies];
     wallNode.physicsBody.dynamic = NO;
+    wallNode.physicsBody.usesPreciseCollisionDetection = YES;
     wallNode.physicsBody.categoryBitMask = wallCategory;
     wallNode.physicsBody.contactTestBitMask = sheepCategory;
+    wallNode.physicsBody.collisionBitMask = sheepCategory;
     wallNode.physicsBody.friction = 0.0f;
     wallNode.position = CGPointMake (0,0);
 
@@ -179,6 +187,8 @@
     node.physicsBody.density  = 0.0;
     node.physicsBody.mass  = 0.0;
     node.physicsBody.contactTestBitMask = sheepCategory;
+    node.physicsBody.collisionBitMask = 0;
+
     
 
     return node;
@@ -196,6 +206,7 @@
     node.physicsBody.dynamic = NO;
     node.physicsBody.categoryBitMask = checkPointCategory;
     node.physicsBody.contactTestBitMask = sheepCategory;
+    node.physicsBody.collisionBitMask = 0;
     node.physicsBody.density  = 0.0;
     node.physicsBody.mass  = 0.0;
     return node;

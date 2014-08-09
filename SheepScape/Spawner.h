@@ -13,8 +13,8 @@
 @interface Spawner : NSObject
 
 + (SheepNode *) sheepNode;
-+(CustomEmmiterNode *)rainWithHeight:(CGFloat)height;
-+(SKShapeNode *) rainAreaFromRainNode:(CustomEmmiterNode *)rain andHeight:(CGFloat)height;
++(SKCropNode *)rainWithHeight:(CGFloat)height;
++(SKCropNode *) rainAreaFromRainNode:(SKEmitterNode *)rain andHeight:(CGFloat)height;
 +(SKShapeNode *)startPointNodeAtPoint:(CGPoint) point;
 +(SKShapeNode *)finalPointNodeAtPoint:(CGPoint) point;
 + (NSMutableArray *) createPlaygroundWithWidth: (CGFloat)width andHeigth:(CGFloat)height andMatrice:(NSArray *) matrice;

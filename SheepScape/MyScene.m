@@ -7,6 +7,8 @@
 //
 #import <CoreMotion/CoreMotion.h>
 #import "MyScene.h"
+#import "UIAlertView+BlockAddition.h"
+
 @interface MyScene()<SKPhysicsContactDelegate,UIAccelerometerDelegate>
 {
     CGRect screenRect;
@@ -63,13 +65,17 @@
         
         self.backgroundColor = [Colors sceneColor];
         [self.game initPlaygroundWithWidth:screenWidth andHeigth:screenHeight];
-       // CustomEmmiterNode * rain = [Spawner rainWithHeight:screenHeight];
-        //[self.game addSupplementaryNode:rain];
-        //rain.position = CGPointMake(0, screenHeight);
+        SKCropNode * node = [Spawner rainWithHeight:screenHeight];
+        [self.game addSupplementaryNode:node];
+        //[rainArray objectAtIndex:0].position = CGPointMake(0, screenHeight);
        ((SKNode *)self.game.arrayOfPlaygroundObjects[0]).position = CGPointMake(0, 0);
         for (SKNode * node in self.game.arrayOfPlaygroundObjects) {
             if (node != nil) [self addChild:node];
         }
+        self.game.sheep = [Spawner sheepNode];
+
+        [self.game.sheep addChild:self.game.sheep.emmiterNode];
+
         [self addChild:self.game.sheep];
         
 
@@ -78,7 +84,7 @@
         self.label.fontSize  = 11;
         self.label.position = CGPointMake(120, 120);
         [self addChild:self.label];
-        
+        self.physicsWorld.speed = 2.0;
         self.physicsBody= [SKPhysicsBody bodyWithEdgeLoopFromRect:screenRect]; // physic body of the scene (the ball can't escape)
         self.physicsWorld.gravity = CGVectorMake(0, 0);
         self.physicsBody.usesPreciseCollisionDetection = YES;
@@ -124,8 +130,8 @@
 -(void)alert:(NSString *)msg
 {
    
-    [[[UIAlertView alloc] initWithTitle:msg
-                                message:@"Le chemin vers la pureté est encore long..."
+    [[[UIAlertView alloc] initWithTitle:@"Error"
+                                message:msg
                                delegate:nil
                       cancelButtonTitle:@"Ok"
                       otherButtonTitles:nil
@@ -167,7 +173,8 @@
     
     
     self.physicsWorld.gravity= CGVectorMake(acceleration.x, acceleration.y);
-        self.label.text = [NSString stringWithFormat:@"%f,%f || %f,%f ",self.physicsWorld.gravity.dx,self.physicsWorld.gravity.dy, self.motionManager.accelerometerData.acceleration.x, self.motionManager.accelerometerData.acceleration.y];
+    
+    //    self.label.text = [NSString stringWithFormat:@"%f,%f || %f,%f ",self.physicsWorld.gravity.dx,self.physicsWorld.gravity.dy, self.motionManager.accelerometerData.acceleration.x, self.motionManager.accelerometerData.acceleration.y];
     //}
 }
 
@@ -203,14 +210,14 @@
     {
         if ([contact.bodyB.node isEqual:self.game.sheep ] && [contact.bodyA.node isEqual:[self.game.arrayOfPlaygroundObjects objectAtIndex:3]])
         {
-            if([[self.game.arrayOfPlaygroundObjects objectAtIndex:3] isKindOfClass:[CustomEmmiterNode class]])
+            if([[self.game.arrayOfPlaygroundObjects objectAtIndex:3] isKindOfClass:[SKCropNode class]])
             {
                 [self.game.sheep cleanSheep];
                 
             }
         }else if ([contact.bodyA.node isEqual:self.game.sheep ] && [contact.bodyB.node isEqual:[self.game.arrayOfPlaygroundObjects objectAtIndex:3]])
         {
-            if([[self.game.arrayOfPlaygroundObjects objectAtIndex:3] isKindOfClass:[CustomEmmiterNode class]])
+            if([[self.game.arrayOfPlaygroundObjects objectAtIndex:3] isKindOfClass:[SKCropNode class]])
             {
                 [self.game.sheep cleanSheep];
                 
@@ -231,18 +238,20 @@
     if (end && self.gameRunning) {
         
         [self pauseGame]  ;
-        self.game.win = @(!end);
-        [self alert:@"GAME OVER"];
         self.gameRunning = NO;
+        self.game.win = @(!end);
+
+
+
 
     }
     if (win && self.gameRunning) {
         
         [self pauseGame]  ;
-        self.game.win = @(win);
-        [self alert:@"YOU WIN !!"];
         self.gameRunning = NO;
-        
+        self.game.win = @(win);
+
+
     }
     
     

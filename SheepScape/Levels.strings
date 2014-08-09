@@ -17,3 +17,8 @@ Level1  = "";
 @[ @0, @1, @0, @1, @0, @1],
 @[ @0, @1, @0, @1, @0, @1],
 @[ @1, @1, @0, @1, @2, @1],
+
+/*
+ Les niveaux sont sur un écran ou plusieurs ou passe à une autre partie par la gauche, droite, haut ou bas. Il faut implémenter ça avec le contact des bords de la scènes (en vérifiant bien qu'il y aie quelque chose de l'autre côté)
+ 
+*/
