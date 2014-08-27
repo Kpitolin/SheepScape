@@ -9,9 +9,7 @@
 #import "MyGameScene.h"
 #import "Level.h"
 @interface Level ()
-{
-    NSArray * _scenes;
-}
+
 
 @end
 
@@ -136,9 +134,6 @@
 {
     return [Level computeNumberOfNecessaryMatricesForInitialMatrice:self.matrice];
 }
-
-
-
 
 
 + (NSNumber *) computeNumberOfNecessaryMatricesForInitialMatrice:(NSArray *)matrice;

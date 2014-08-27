@@ -12,6 +12,8 @@ class Game: NSObject {
     
     var isRunning = false
     var currentLevel: NSNumber = 0
+
     
-    
+
+
 }

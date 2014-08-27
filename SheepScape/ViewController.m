@@ -151,15 +151,48 @@
                                    }];
    }
 
--(void)userNeedSceneSwitching:(Level *)sender withDirection:(Direction)direction
+- (void)userNeedSceneSwitchingForLevel:(Level *)sender withDirection:(Direction)direction currentSceneLateralPosition: (NSNumber *)lateral verticalPosition:(NSNumber *)vertical
 {
-//    switch (direction) {
-//        case constant:
-//            
-//            break;
-//            
-//        default:
-//            break;
-//    }
+    
+    MyGameScene * gscene = nil;
+    for (MyGameScene* scene in sender.scenes)
+    {
+        if ([scene.lateralPosition isEqualToNumber:lateral] && [scene.verticalPosition isEqualToNumber:vertical]) {
+            gscene = scene;
+        }
+    }
+    
+    if(gscene!= nil)
+    {
+        switch (direction) {
+            case Left:
+                
+                
+                [(SKView *)self.view presentScene:gscene transition:[SKTransition pushWithDirection:SKTransitionDirectionRight duration:3.0]];
+                
+                
+                break;
+            case Right:
+                
+                [(SKView *)self.view presentScene:gscene transition:[SKTransition pushWithDirection:SKTransitionDirectionLeft duration:3.0]];
+                
+                break;
+            case Up:
+                
+                [(SKView *)self.view presentScene:gscene transition:[SKTransition pushWithDirection:SKTransitionDirectionDown duration:3.0]];
+                
+                break;
+            case Down:
+                
+                [(SKView *)self.view presentScene:gscene transition:[SKTransition pushWithDirection:SKTransitionDirectionUp duration:3.0]];
+                
+                break;
+                
+            default:
+                NSAssert(true, @"Gesture not recognized");
+                break;
+        }
+    }
+
 }
 @end

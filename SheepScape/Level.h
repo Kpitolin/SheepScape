@@ -21,8 +21,10 @@ typedef NS_ENUM(NSUInteger, Direction) {
 };
 @protocol levelDelegate;
 
+
 @interface Level : NSObject
 @property (nonatomic, strong) NSArray * arrayOfPlaygroundObjects;
+@property (nonatomic, strong) NSArray * scenes;
 @property (nonatomic,strong) SKShapeNode * startPointNode;
 @property (nonatomic,strong) SKShapeNode * finalPointNode;
 @property (nonatomic, strong) NSArray * matrice;
@@ -45,6 +47,6 @@ typedef NS_ENUM(NSUInteger, Direction) {
 @protocol levelDelegate <NSObject>
 - (void)userFinishedLevel:(Level *)sender ;
 - (void)userFailedLevel:(Level *)sender ;
-- (void)userNeedSceneSwitching:(Level *)sender withDirection:(Direction)direction;
+- (void)userNeedSceneSwitchingForLevel:(Level *)sender withDirection:(Direction)direction currentSceneLateralPosition: (NSNumber *)lateral verticalPosition:(NSNumber *)vertical;
 
 @end

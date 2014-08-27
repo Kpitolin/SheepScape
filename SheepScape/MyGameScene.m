@@ -231,6 +231,40 @@
 
     }
     
+    
+    if (([contact.bodyB.node isEqual:self.game.sheep ] && [contact.bodyA.node isEqual:self.physicsBody])
+        || ([contact.bodyA.node isEqual:self.game.sheep ] && [contact.bodyB.node isEqual:self.physicsBody]))
+    {
+        if(contact.contactPoint.x == self.scene.size.width )
+        {
+            if ([self.delegate respondsToSelector:@selector(userNeedSceneSwitchingForLevel:withDirection:currentSceneLateralPosition:verticalPosition:)]) {
+                [self.game.delegate userNeedSceneSwitchingForLevel:self.game withDirection:Right currentSceneLateralPosition: self.lateralPosition verticalPosition: self.verticalPosition];
+            }
+        }
+        if ( contact.contactPoint.y == self.scene.size.height)
+        {
+            if ([self.delegate respondsToSelector:@selector(userNeedSceneSwitchingForLevel:withDirection:currentSceneLateralPosition:verticalPosition:)]) {
+                [self.game.delegate userNeedSceneSwitchingForLevel:self.game withDirection:Down currentSceneLateralPosition: self.lateralPosition verticalPosition: self.verticalPosition];
+            }
+        }
+        if (contact.contactPoint.y  == 0)
+        {
+            if ([self.delegate respondsToSelector:@selector(userNeedSceneSwitchingForLevel:withDirection:currentSceneLateralPosition:verticalPosition:)]) {
+                [self.game.delegate userNeedSceneSwitchingForLevel:self.game withDirection:Up currentSceneLateralPosition: self.lateralPosition verticalPosition: self.verticalPosition];
+            }
+        }
+        if (contact.contactPoint.x  == 0)
+        {
+            if ([self.delegate respondsToSelector:@selector(userNeedSceneSwitchingForLevel:withDirection:currentSceneLateralPosition:verticalPosition:)]) {
+                [self.game.delegate userNeedSceneSwitchingForLevel:self.game withDirection:Left currentSceneLateralPosition: self.lateralPosition verticalPosition: self.verticalPosition];
+            }
+        }
+    }
+    
+  
+        
+
+    
     if (end && self.gameRunning) {
         
         [self pauseGame]  ;
