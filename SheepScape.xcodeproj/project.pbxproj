@@ -9,8 +9,12 @@
 /* Begin PBXBuildFile section */
 		DE1012F8198E5323004C38BD /* LevelsConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE1012F7198E5323004C38BD /* LevelsConfig.plist */; };
 		DE1012FA198E5339004C38BD /* Levels.strings in Resources */ = {isa = PBXBuildFile; fileRef = DE1012F9198E5339004C38BD /* Levels.strings */; };
-		DE1012FD198ECD37004C38BD /* GameLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = DE1012FC198ECD37004C38BD /* GameLevel.m */; };
+		DE1012FD198ECD37004C38BD /* Level.m in Sources */ = {isa = PBXBuildFile; fileRef = DE1012FC198ECD37004C38BD /* Level.m */; };
 		DE101300198ED16B004C38BD /* CustomEmmiterNode.m in Sources */ = {isa = PBXBuildFile; fileRef = DE1012FF198ED16B004C38BD /* CustomEmmiterNode.m */; };
+		DE32265B199BDAC200934189 /* game_easy.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE322659199BDAC200934189 /* game_easy.plist */; };
+		DE32265C199BDAC200934189 /* string_easy.txt in Resources */ = {isa = PBXBuildFile; fileRef = DE32265A199BDAC200934189 /* string_easy.txt */; };
+		DE33685319AD2B8C006A94A2 /* MatriceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE33685219AD2B8C006A94A2 /* MatriceTests.swift */; };
+		DE35FC0219AA05FA00F7747F /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE35FC0119AA05FA00F7747F /* Game.swift */; };
 		DE555F2B198CF80600AFFFE4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE555F2A198CF80600AFFFE4 /* Foundation.framework */; };
 		DE555F2D198CF80600AFFFE4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE555F2C198CF80600AFFFE4 /* CoreGraphics.framework */; };
 		DE555F2F198CF80600AFFFE4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE555F2E198CF80600AFFFE4 /* UIKit.framework */; };
@@ -21,7 +25,7 @@
 		DE555F40198CF80700AFFFE4 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE555F3E198CF80700AFFFE4 /* Main_iPhone.storyboard */; };
 		DE555F43198CF80700AFFFE4 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE555F41198CF80700AFFFE4 /* Main_iPad.storyboard */; };
 		DE555F46198CF80700AFFFE4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE555F45198CF80700AFFFE4 /* ViewController.m */; };
-		DE555F49198CF80700AFFFE4 /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DE555F48198CF80700AFFFE4 /* MyScene.m */; };
+		DE555F49198CF80700AFFFE4 /* MyGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DE555F48198CF80700AFFFE4 /* MyGameScene.m */; };
 		DE555F4D198CF80700AFFFE4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE555F4C198CF80700AFFFE4 /* Images.xcassets */; };
 		DE555F54198CF80700AFFFE4 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE555F53198CF80700AFFFE4 /* XCTest.framework */; };
 		DE555F55198CF80700AFFFE4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE555F2A198CF80600AFFFE4 /* Foundation.framework */; };
@@ -35,6 +39,10 @@
 		DE555F74198D2BFD00AFFFE4 /* Rain.sks in Resources */ = {isa = PBXBuildFile; fileRef = DE555F73198D2BFD00AFFFE4 /* Rain.sks */; };
 		DE5E0E23198D5E4D00449D09 /* SheepNode.m in Sources */ = {isa = PBXBuildFile; fileRef = DE5E0E22198D5E4D00449D09 /* SheepNode.m */; };
 		DE6AD0F51992C5A4006DE494 /* UIAlertView+BlockAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = DE6AD0F41992C5A4006DE494 /* UIAlertView+BlockAddition.m */; };
+		DEFE5DE31997977100309CD9 /* MatriceGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFE5DE21997977100309CD9 /* MatriceGenerator.m */; };
+		DEFE5DE51997C11600309CD9 /* game.plist in Resources */ = {isa = PBXBuildFile; fileRef = DEFE5DE41997C11600309CD9 /* game.plist */; };
+		DEFE5DE71997C12800309CD9 /* string.txt in Resources */ = {isa = PBXBuildFile; fileRef = DEFE5DE61997C12800309CD9 /* string.txt */; };
+		DEFE5DEA1997C27900309CD9 /* FinalScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFE5DE91997C27900309CD9 /* FinalScene.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,10 +58,16 @@
 /* Begin PBXFileReference section */
 		DE1012F7198E5323004C38BD /* LevelsConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LevelsConfig.plist; sourceTree = "<group>"; };
 		DE1012F9198E5339004C38BD /* Levels.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Levels.strings; sourceTree = "<group>"; };
-		DE1012FB198ECD37004C38BD /* GameLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLevel.h; sourceTree = "<group>"; };
-		DE1012FC198ECD37004C38BD /* GameLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLevel.m; sourceTree = "<group>"; };
+		DE1012FB198ECD37004C38BD /* Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Level.h; sourceTree = "<group>"; };
+		DE1012FC198ECD37004C38BD /* Level.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Level.m; sourceTree = "<group>"; };
 		DE1012FE198ED16B004C38BD /* CustomEmmiterNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomEmmiterNode.h; sourceTree = "<group>"; };
 		DE1012FF198ED16B004C38BD /* CustomEmmiterNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomEmmiterNode.m; sourceTree = "<group>"; };
+		DE322659199BDAC200934189 /* game_easy.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = game_easy.plist; sourceTree = "<group>"; };
+		DE32265A199BDAC200934189 /* string_easy.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = string_easy.txt; sourceTree = "<group>"; };
+		DE33685119AD2B8B006A94A2 /* SheepScapeTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SheepScapeTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		DE33685219AD2B8C006A94A2 /* MatriceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatriceTests.swift; sourceTree = "<group>"; };
+		DE35FC0019AA05FA00F7747F /* SheepScape-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SheepScape-Bridging-Header.h"; sourceTree = "<group>"; };
+		DE35FC0119AA05FA00F7747F /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		DE555F27198CF80600AFFFE4 /* SheepScape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SheepScape.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE555F2A198CF80600AFFFE4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DE555F2C198CF80600AFFFE4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -69,8 +83,8 @@
 		DE555F42198CF80700AFFFE4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		DE555F44198CF80700AFFFE4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		DE555F45198CF80700AFFFE4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		DE555F47198CF80700AFFFE4 /* MyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
-		DE555F48198CF80700AFFFE4 /* MyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
+		DE555F47198CF80700AFFFE4 /* MyGameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyGameScene.h; sourceTree = "<group>"; };
+		DE555F48198CF80700AFFFE4 /* MyGameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyGameScene.m; sourceTree = "<group>"; };
 		DE555F4C198CF80700AFFFE4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DE555F52198CF80700AFFFE4 /* SheepScapeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SheepScapeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE555F53198CF80700AFFFE4 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -89,6 +103,12 @@
 		DE5E0E22198D5E4D00449D09 /* SheepNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SheepNode.m; sourceTree = "<group>"; };
 		DE6AD0F31992C5A4006DE494 /* UIAlertView+BlockAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+BlockAddition.h"; sourceTree = "<group>"; };
 		DE6AD0F41992C5A4006DE494 /* UIAlertView+BlockAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+BlockAddition.m"; sourceTree = "<group>"; };
+		DEFE5DE11997977100309CD9 /* MatriceGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatriceGenerator.h; path = ../MatriceGenerator.h; sourceTree = "<group>"; };
+		DEFE5DE21997977100309CD9 /* MatriceGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatriceGenerator.m; path = ../MatriceGenerator.m; sourceTree = "<group>"; };
+		DEFE5DE41997C11600309CD9 /* game.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = game.plist; sourceTree = "<group>"; };
+		DEFE5DE61997C12800309CD9 /* string.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = string.txt; sourceTree = "<group>"; };
+		DEFE5DE81997C27900309CD9 /* FinalScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinalScene.h; sourceTree = "<group>"; };
+		DEFE5DE91997C27900309CD9 /* FinalScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinalScene.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +136,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DE35FC0319AA109800F7747F /* CustomObjects */ = {
+			isa = PBXGroup;
+			children = (
+				DE5E0E22198D5E4D00449D09 /* SheepNode.m */,
+				DE5E0E21198D5E4D00449D09 /* SheepNode.h */,
+				DE1012FF198ED16B004C38BD /* CustomEmmiterNode.m */,
+				DE1012FE198ED16B004C38BD /* CustomEmmiterNode.h */,
+			);
+			name = CustomObjects;
+			sourceTree = "<group>";
+		};
 		DE555F1E198CF80600AFFFE4 = {
 			isa = PBXGroup;
 			children = (
@@ -158,10 +189,14 @@
 				DE555F41198CF80700AFFFE4 /* Main_iPad.storyboard */,
 				DE555F44198CF80700AFFFE4 /* ViewController.h */,
 				DE555F45198CF80700AFFFE4 /* ViewController.m */,
-				DE555F47198CF80700AFFFE4 /* MyScene.h */,
-				DE555F48198CF80700AFFFE4 /* MyScene.m */,
+				DE555F48198CF80700AFFFE4 /* MyGameScene.m */,
+				DE555F47198CF80700AFFFE4 /* MyGameScene.h */,
+				DEFE5DE11997977100309CD9 /* MatriceGenerator.h */,
+				DEFE5DE21997977100309CD9 /* MatriceGenerator.m */,
 				DE555F6D198D272100AFFFE4 /* Spawner.h */,
 				DE555F6E198D272100AFFFE4 /* Spawner.m */,
+				DEFE5DE81997C27900309CD9 /* FinalScene.h */,
+				DEFE5DE91997C27900309CD9 /* FinalScene.m */,
 				DE6AD0F81992C65A006DE494 /* Model */,
 				DE555F4C198CF80700AFFFE4 /* Images.xcassets */,
 				DE555F33198CF80600AFFFE4 /* Supporting Files */,
@@ -184,6 +219,8 @@
 			isa = PBXGroup;
 			children = (
 				DE555F5F198CF80700AFFFE4 /* SheepScapeTests.m */,
+				DE33685219AD2B8C006A94A2 /* MatriceTests.swift */,
+				DE33685119AD2B8B006A94A2 /* SheepScapeTests-Bridging-Header.h */,
 				DE555F5A198CF80700AFFFE4 /* Supporting Files */,
 			);
 			path = SheepScapeTests;
@@ -214,6 +251,10 @@
 			children = (
 				DE6AD0F61992C5C3006DE494 /* Utils */,
 				DE1012F7198E5323004C38BD /* LevelsConfig.plist */,
+				DE322659199BDAC200934189 /* game_easy.plist */,
+				DE32265A199BDAC200934189 /* string_easy.txt */,
+				DEFE5DE41997C11600309CD9 /* game.plist */,
+				DEFE5DE61997C12800309CD9 /* string.txt */,
 				DE1012F9198E5339004C38BD /* Levels.strings */,
 				DE555F69198D1E1700AFFFE4 /* Cloudy.sks */,
 				DE555F6A198D1E1700AFFFE4 /* spark.png */,
@@ -225,12 +266,11 @@
 		DE6AD0F81992C65A006DE494 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DE1012FB198ECD37004C38BD /* GameLevel.h */,
-				DE1012FC198ECD37004C38BD /* GameLevel.m */,
-				DE1012FE198ED16B004C38BD /* CustomEmmiterNode.h */,
-				DE1012FF198ED16B004C38BD /* CustomEmmiterNode.m */,
-				DE5E0E21198D5E4D00449D09 /* SheepNode.h */,
-				DE5E0E22198D5E4D00449D09 /* SheepNode.m */,
+				DE35FC0119AA05FA00F7747F /* Game.swift */,
+				DE35FC0019AA05FA00F7747F /* SheepScape-Bridging-Header.h */,
+				DE1012FB198ECD37004C38BD /* Level.h */,
+				DE1012FC198ECD37004C38BD /* Level.m */,
+				DE35FC0319AA109800F7747F /* CustomObjects */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -313,11 +353,15 @@
 			files = (
 				DE555F6B198D1E1700AFFFE4 /* Cloudy.sks in Resources */,
 				DE1012FA198E5339004C38BD /* Levels.strings in Resources */,
+				DEFE5DE51997C11600309CD9 /* game.plist in Resources */,
+				DEFE5DE71997C12800309CD9 /* string.txt in Resources */,
 				DE555F4D198CF80700AFFFE4 /* Images.xcassets in Resources */,
 				DE555F74198D2BFD00AFFFE4 /* Rain.sks in Resources */,
 				DE555F6C198D1E1700AFFFE4 /* spark.png in Resources */,
 				DE555F43198CF80700AFFFE4 /* Main_iPad.storyboard in Resources */,
+				DE32265B199BDAC200934189 /* game_easy.plist in Resources */,
 				DE1012F8198E5323004C38BD /* LevelsConfig.plist in Resources */,
+				DE32265C199BDAC200934189 /* string_easy.txt in Resources */,
 				DE555F40198CF80700AFFFE4 /* Main_iPhone.storyboard in Resources */,
 				DE555F37198CF80600AFFFE4 /* InfoPlist.strings in Resources */,
 			);
@@ -340,12 +384,15 @@
 			files = (
 				DE5E0E23198D5E4D00449D09 /* SheepNode.m in Sources */,
 				DE6AD0F51992C5A4006DE494 /* UIAlertView+BlockAddition.m in Sources */,
-				DE555F49198CF80700AFFFE4 /* MyScene.m in Sources */,
+				DE555F49198CF80700AFFFE4 /* MyGameScene.m in Sources */,
+				DE35FC0219AA05FA00F7747F /* Game.swift in Sources */,
+				DEFE5DEA1997C27900309CD9 /* FinalScene.m in Sources */,
 				DE555F72198D295F00AFFFE4 /* Colors.m in Sources */,
-				DE1012FD198ECD37004C38BD /* GameLevel.m in Sources */,
+				DE1012FD198ECD37004C38BD /* Level.m in Sources */,
 				DE555F46198CF80700AFFFE4 /* ViewController.m in Sources */,
 				DE555F3D198CF80600AFFFE4 /* AppDelegate.m in Sources */,
 				DE101300198ED16B004C38BD /* CustomEmmiterNode.m in Sources */,
+				DEFE5DE31997977100309CD9 /* MatriceGenerator.m in Sources */,
 				DE555F39198CF80600AFFFE4 /* main.m in Sources */,
 				DE555F6F198D272100AFFFE4 /* Spawner.m in Sources */,
 			);
@@ -356,6 +403,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE555F60198CF80700AFFFE4 /* SheepScapeTests.m in Sources */,
+				DE33685319AD2B8C006A94A2 /* MatriceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,11 +530,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SheepScape/SheepScape-Prefix.pch";
 				INFOPLIST_FILE = "SheepScape/SheepScape-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "SheepScape/SheepScape-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -496,11 +548,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SheepScape/SheepScape-Prefix.pch";
 				INFOPLIST_FILE = "SheepScape/SheepScape-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "SheepScape/SheepScape-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -509,6 +564,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SheepScape.app/SheepScape";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -521,7 +577,10 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "SheepScapeTests/SheepScapeTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SheepScapeTests/SheepScapeTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -531,6 +590,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SheepScape.app/SheepScape";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -539,7 +599,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SheepScape/SheepScape-Prefix.pch";
 				INFOPLIST_FILE = "SheepScapeTests/SheepScapeTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SheepScapeTests/SheepScapeTests-Bridging-Header.h";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};

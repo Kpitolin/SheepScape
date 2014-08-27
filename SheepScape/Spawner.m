@@ -58,9 +58,11 @@
     node.physicsBody.contactTestBitMask = wallCategory;
     node.physicsBody.collisionBitMask = wallCategory;
     node.physicsBody.mass = 100;
-    node.physicsBody.friction = 0.5f;
-    node.physicsBody.restitution = 0.5f;
-    node.physicsBody.linearDamping = 0.0f;
+    node.physicsBody.friction = 1.0;
+    node.physicsBody.restitution = 0.5;
+    node.physicsBody.linearDamping = 0.0;
+    node.physicsBody.angularDamping = 0.0;
+
     return node;
 }
 
@@ -161,7 +163,7 @@
     wallNode.physicsBody.categoryBitMask = wallCategory;
     wallNode.physicsBody.contactTestBitMask = sheepCategory;
     wallNode.physicsBody.collisionBitMask = sheepCategory;
-    wallNode.physicsBody.friction = 0.0f;
+    wallNode.physicsBody.friction = 0.0;
     wallNode.position = CGPointMake (0,0);
 
     
@@ -215,6 +217,12 @@
 
 
 
++ (SKScene *) finalSceneWithSize : (CGSize) size andMessage: (NSString *) message
+{
+    FinalScene *scene = [[FinalScene alloc]init];
+    scene = [scene initWithSize:size andMessage:message];
 
+    return scene;
+}
 
 @end

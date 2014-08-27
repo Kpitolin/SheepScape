@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 KEVIN. All rights reserved.
 //
 #import <CoreMotion/CoreMotion.h>
-#import "MyScene.h"
+#import "MyGameScene.h"
 #import "UIAlertView+BlockAddition.h"
-
-@interface MyScene()<SKPhysicsContactDelegate,UIAccelerometerDelegate>
+#import "Spawner.h"
+@interface MyGameScene()<SKPhysicsContactDelegate,UIAccelerometerDelegate>
 {
     CGRect screenRect;
     CGFloat screenHeight;
@@ -22,7 +22,7 @@
 @property (nonatomic, strong) CMMotionManager * motionManager;
 @end
 
-@implementation MyScene
+@implementation MyGameScene
 
 #define UPDATES_PER_SECOND 60
 -(CMMotionManager *) motionManager
@@ -35,7 +35,7 @@
     }
     return _motionManager;
 }
--(id)initWithSize:(CGSize)size andGameLevel:(GameLevel*) game
+-(id)initWithSize:(CGSize)size andGameLevel:(Level*) game
 {
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
@@ -84,10 +84,14 @@
         self.label.fontSize  = 11;
         self.label.position = CGPointMake(120, 120);
         [self addChild:self.label];
-        self.physicsWorld.speed = 2.0;
+        self.physicsWorld.speed = 1.0;
         self.physicsBody= [SKPhysicsBody bodyWithEdgeLoopFromRect:screenRect]; // physic body of the scene (the ball can't escape)
         self.physicsWorld.gravity = CGVectorMake(0, 0);
         self.physicsBody.usesPreciseCollisionDetection = YES;
+        self.physicsBody.linearDamping= 0.0;
+        self.physicsBody.friction= 0.0;
+        self.physicsBody.restitution= 0.0;
+
         self.physicsWorld.contactDelegate = self; // if there's a collision, the scene receive the notification
         self.gameRunning = NO;
 
@@ -172,22 +176,12 @@
     
     
     
-    self.physicsWorld.gravity= CGVectorMake(acceleration.x, acceleration.y);
+    self.physicsWorld.gravity= CGVectorMake(acceleration.x*4, acceleration.y*4);
     
-    //    self.label.text = [NSString stringWithFormat:@"%f,%f || %f,%f ",self.physicsWorld.gravity.dx,self.physicsWorld.gravity.dy, self.motionManager.accelerometerData.acceleration.x, self.motionManager.accelerometerData.acceleration.y];
-    //}
+  
 }
 
--(void)update:(CFTimeInterval)currentTime {
-    /* Called before each frame is rendered */
-    
-   
-    
-   
-    
 
-    
-}
 
 
 #pragma mark - SKPhysicsContactDelegate
@@ -212,6 +206,7 @@
         {
             if([[self.game.arrayOfPlaygroundObjects objectAtIndex:3] isKindOfClass:[SKCropNode class]])
             {
+                [self.game.sheep.physicsBody applyImpulse: CGVectorMake(0,-9.8)];
                 [self.game.sheep cleanSheep];
                 
             }
@@ -219,6 +214,7 @@
         {
             if([[self.game.arrayOfPlaygroundObjects objectAtIndex:3] isKindOfClass:[SKCropNode class]])
             {
+                [self.game.sheep.physicsBody applyImpulse: CGVectorMake(0,-9.8)];
                 [self.game.sheep cleanSheep];
                 
             }
@@ -239,7 +235,7 @@
         
         [self pauseGame]  ;
         self.gameRunning = NO;
-        self.game.win = @(!end);
+        self.game.passed = @(!end);
 
 
 
@@ -249,7 +245,7 @@
         
         [self pauseGame]  ;
         self.gameRunning = NO;
-        self.game.win = @(win);
+        self.game.passed = @(win);
 
 
     }

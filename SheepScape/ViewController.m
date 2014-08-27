@@ -7,10 +7,11 @@
 //
 #import "UIAlertView+BlockAddition.h"
 #import "ViewController.h"
-#import "MyScene.h"
-@interface ViewController()<WinDelegate>
-@property (nonatomic, strong)MyScene * scene;
-@property (nonatomic , strong)GameLevel * currentGame;
+#import "MyGameScene.h"
+#import "Spawner.h"
+@interface ViewController()<levelDelegate>
+@property (nonatomic, strong)MyGameScene * scene;
+@property (nonatomic , strong)Level * currentGame;
 @end
 @implementation ViewController
 
@@ -25,7 +26,7 @@
    // skView.showsPhysics = YES;
     // Create and configure the scene.
     self.currentGame.delegate = self;
-    self.scene = [[MyScene alloc ]init];
+    self.scene = [[MyGameScene alloc ]init];
     self.scene = [self.scene initWithSize:self.view.bounds.size andGameLevel:self.currentGame];
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)]];
@@ -38,6 +39,7 @@
 
     // Present the scene.
     [skView presentScene:self.scene];
+    //[(SKView *)self.view presentScene:[Spawner finalSceneWithSize:self.view.bounds.size andMessage:@"Bravo, tu es arrivé au bout du chemin."] transition:[SKTransition doorsOpenHorizontalWithDuration:3.0]];
 }
 
 - (BOOL)shouldAutorotate
@@ -56,24 +58,20 @@
 
 
 // Find a system to pass to next level
-#define LEVEL_PLIST_PATH [[NSBundle mainBundle] pathForResource:@"LevelsConfig" ofType:@"plist"]
+#define LEVEL_PLIST_PATH [[NSBundle mainBundle] pathForResource:@"game_easy" ofType:@"plist"]
 
-- (GameLevel *) currentGame
+- (Level *) currentGame
 {
-    GameLevel * game;
+    Level * game;
     if (!_currentGame) {
-         game = [[GameLevel alloc ]init];
+         game = [[Level alloc ]init];
         _currentGame = game;
     }
     _currentGame = [_currentGame initWithPlistRepresentation: [NSDictionary dictionaryWithContentsOfFile:LEVEL_PLIST_PATH]];
 
     return _currentGame;
 }
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
-}
+
 
 -(void)tap{
     if ([self.scene isPaused] && self.scene.gameRunning) {
@@ -91,7 +89,9 @@
 }
 
 
-- (void)userFinishedLevel:(GameLevel *)sender
+// Swift this and put it in game !!
+
+- (void)userFinishedLevel:(Level *)sender
 {
     [UIAlertView presentAlertViewWithTitle:@"Tu as gagné"
                                    message:@"Un petit pas de plus vers l'au-delà..." cancelButtonTitle:nil otherButtonTitles:@[@"Continuer"] completionHandler:^(UIAlertView *alertView, NSInteger buttonIndex) {
@@ -110,14 +110,9 @@
                                                }
                                                else
                                                {
-                                                   [(SKView *)self.view presentScene:nil transition:[SKTransition doorsOpenHorizontalWithDuration:3.0]];
+                                                   [(SKView *)self.view presentScene:[Spawner finalSceneWithSize:self.view.bounds.size andMessage:@"Bravo\nTu es arrivé au bout du chemin."] transition:[SKTransition doorsOpenHorizontalWithDuration:3.0]];
                                                    
-                                                   [[[UIAlertView alloc] initWithTitle:@"Fin du jeu"
-                                                                               message:@"Tu es arrivé au bout du chemin"
-                                                                              delegate:nil
-                                                                     cancelButtonTitle:@"Ok"
-                                                                     otherButtonTitles:nil
-                                                     , nil] show];
+
                                                    
                                                }
                                            }
@@ -129,7 +124,7 @@
 
 
 }
-- (void)userFailedLevel:(GameLevel *)sender
+- (void)userFailedLevel:(Level *)sender
 {
     [UIAlertView presentAlertViewWithTitle:@"Game Over"
                                    message:@"Le chemin vers la pureté est encore long..." cancelButtonTitle:nil otherButtonTitles:@[@"Recommencer le niveau",@"Recommencer le jeu"] completionHandler:^(UIAlertView *alertView, NSInteger buttonIndex) {
@@ -156,5 +151,15 @@
                                    }];
    }
 
-
+-(void)userNeedSceneSwitching:(Level *)sender withDirection:(Direction)direction
+{
+//    switch (direction) {
+//        case constant:
+//            
+//            break;
+//            
+//        default:
+//            break;
+//    }
+}
 @end
